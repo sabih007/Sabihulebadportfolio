@@ -97,8 +97,12 @@ export const footerNavigation = [
   { label: "Contact", href: "/contact" },
 ] as const;
 
-/** Only links with a verified URL are returned, so nothing is ever fabricated. */
-export function socialLinks(): SocialLink[] {
+/**
+ * Only links with a verified URL are returned, so nothing is ever fabricated.
+ * Pass `includeEmail: false` where the email is already shown directly, so it
+ * is not listed twice (the footer shows it beside the phone number).
+ */
+export function socialLinks({ includeEmail = true } = {}): SocialLink[] {
   const entries: SocialLink[] = [
     { label: "LinkedIn", href: links.linkedin, external: true },
     { label: "Upwork", href: links.upwork, external: true },
@@ -108,7 +112,7 @@ export function socialLinks(): SocialLink[] {
     entries.push({ label: "GitHub", href: links.github, external: true });
   }
 
-  if (links.email) {
+  if (links.email && includeEmail) {
     entries.push({ label: "Email", href: `mailto:${links.email}`, external: false });
   }
 

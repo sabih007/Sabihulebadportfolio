@@ -6,24 +6,35 @@ data layer, and the placeholder it replaces disappears automatically.
 
 ## 1. Verified contact details — `data/site.ts`
 
-| Field | Status | Effect once set |
+| Field | Status | Notes |
 | --- | --- | --- |
-| `links.email` | `null` | Adds an Email link to the footer, the final CTA and the contact page, and removes the "direct email is not published yet" note. |
-| `links.github` | `null` | Adds GitHub to the same three places and to the `sameAs` list in the Person schema. |
+| `contact.email` | **info@sabihulebad.com** | Shown on the contact page and in the footer; also the default enquiry destination. |
+| `contact.phone` | **+92 325 3596641** | Shown on the contact page and in the footer, with a `tel:` link. |
+| `links.github` | `null` | Add it and GitHub appears in the footer, the final CTA and the `sameAs` list in the Person schema. |
 
-Set `links.email` to a bare address (`you@domain.com`) — the `mailto:` prefix is
-added for you.
+> The email was given as "info@sabihulebad" / "info@sabihulebad.con" — read as
+> **info@sabihulebad.com** to match the site domain. If that is wrong, change it
+> in `data/site.ts` (two places in the `contact` object plus `links.email`) and
+> set `CONTACT_TO_EMAIL`.
 
-## 2. Email delivery for the contact form — `app/api/contact/route.ts`
+## 2. SMTP credentials for the contact form
 
-The form validates, rate-limits and rejects spam today, but **does not send**. It
-returns HTTP 503 `not_configured` and the UI says so plainly rather than showing
-a false success. To go live:
+Delivery is implemented with **Nodemailer** (`lib/contact/mailer.ts`) and sends
+to `info@sabihulebad.com`. The only thing missing is the mailbox credentials,
+which must come from the environment — never the repository.
 
-1. Copy `.env.example` to `.env.local` and set `CONTACT_PROVIDER_API_KEY`,
-   `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`.
-2. Replace the body of `deliver()` with the provider call. A ready-to-paste
-   Resend implementation is in the comment block at the top of the file.
+1. Copy `.env.example` to `.env.local`.
+2. Fill in `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`. Worked examples
+   for cPanel and Google Workspace are in that file.
+3. Set the same variables in your host's environment settings for production.
+
+`CONTACT_FROM_EMAIL` must be an address the SMTP account is allowed to send as,
+or messages will fail SPF/DKIM and be filed as spam. The visitor's own address is
+set as **Reply-To**, so replying in your mail client still reaches them.
+
+Until those are set the route validates, rejects spam, **logs the enquiry so it
+is never lost**, and returns HTTP 503 `not_configured` — the form then tells the
+visitor the truth and offers the email and phone instead.
 
 ## 3. Experience timeline — `data/experience.ts`
 

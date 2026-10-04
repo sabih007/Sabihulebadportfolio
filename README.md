@@ -12,8 +12,8 @@ npx tsc --noEmit
 ```
 
 See **[TODO.md](./TODO.md)** for the short list of real-world values that still
-need supplying before launch (email, GitHub, experience entries, screenshots,
-mail delivery). Nothing in that list blocks the site from running.
+need supplying before launch (SMTP credentials, GitHub, experience entries,
+project screenshots). Nothing in that list blocks the site from running.
 
 ---
 
@@ -141,7 +141,7 @@ components/
   experience/  expertise/  services/  testimonials/  faq/  contact/  ui/
 
 data/        site · projects · testimonials · experience · skills · services · faq
-lib/         animations · contact (zod schema) · utils
+lib/         animations · contact (zod schema + nodemailer) · utils
 scripts/     generate-brand-assets.mjs
 assets/      brand/ (approved source artwork) · og/ (TTF for the OG route)
 ```
@@ -217,6 +217,37 @@ Metadata API with per-page titles, descriptions and canonicals; Open Graph and
 Twitter cards; a generated OG image; `sitemap.xml`; `robots.txt`; and JSON-LD for
 `Person`, `WebSite`, the work `CollectionPage` and a `CreativeWork` per case
 study. Only verified profile URLs appear in `sameAs`.
+
+---
+
+## Contact form
+
+Enquiries are delivered over SMTP with **Nodemailer** to
+`info@sabihulebad.com`. Credentials come from the environment only — see
+`.env.example` for the five variables and worked examples for cPanel and Google
+Workspace.
+
+- `lib/contact/mailer.ts` owns the transport and the message. Connection is
+  pooled and reused, with connection/greeting/socket timeouts so a hung mail
+  server cannot hold a request open.
+- `app/api/contact/route.ts` owns validation and policy: a shared zod schema
+  (client and server), a hidden honeypot, a minimum time-on-form, and a small
+  per-IP rate limit.
+- The message is sent as **multipart/alternative**. The `From` is your own
+  address — sending as the visitor would fail SPF/DKIM — and `Reply-To` is the
+  visitor, so replying reaches them directly.
+
+Two details worth keeping if you edit it:
+
+- **CR/LF is stripped** from any value used in a mail header. Without that, a
+  newline in the name field could inject extra headers.
+- **User text is HTML-escaped** in the HTML part. Verified against a real SMTP
+  exchange: the `text/html` part contains only `&lt;script&gt;`, never an
+  executable tag or an `onerror` attribute.
+
+If SMTP is not configured the route does not pretend. It validates, rejects
+spam, logs the enquiry so nothing is lost, and answers HTTP 503
+`not_configured`; the form then says so and offers the email and phone.
 
 ---
 

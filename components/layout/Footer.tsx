@@ -5,7 +5,8 @@ import { contact, footerNavigation, site, socialLinks } from "@/data/site";
 
 export function Footer() {
   const year = new Date().getFullYear();
-  const social = socialLinks();
+  // Email and phone appear in the left column, so the profile list omits email.
+  const social = socialLinks({ includeEmail: false });
 
   return (
     <footer data-tone="dark" className="grain-dark relative bg-navy text-fg">
