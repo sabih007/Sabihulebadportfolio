@@ -15,6 +15,34 @@ See **[TODO.md](./TODO.md)** for the short list of real-world values that still
 need supplying before launch (SMTP credentials, GitHub, experience entries,
 project screenshots). Nothing in that list blocks the site from running.
 
+### If the build crashes
+
+A Turbopack worker crash looks like this:
+
+```
+node process exited before we could connect to it with exit status: 0
+```
+
+That is a worker **failing to start**, almost always memory pressure on the build
+machine — not a CSS or Tailwind problem. Both bundlers use the same
+`@tailwindcss/postcss` plugin, and a `next build --webpack` run succeeds on this
+project, which rules the CSS pipeline out. In order of least to most disruptive:
+
+1. Free memory and retry. The static-generation step runs several workers in
+   parallel; on a machine with little headroom they can fail to spawn.
+2. Give Node more heap:
+   `NODE_OPTIONS=--max-old-space-size=4096 npm run build`
+   (PowerShell: `$env:NODE_OPTIONS="--max-old-space-size=4096"; npm run build`)
+3. Fall back to webpack: `npm run build:webpack` — identical output, no
+   Turbopack worker involved.
+4. Clear stale state: `rm -rf .next` and rebuild.
+
+**Do not downgrade Tailwind to v3 for this.** `@tailwindcss/postcss` has no 3.x
+release — the package exists only for v4 — so the install would fail. The whole
+design system here is v4 (`@theme`, `@import "tailwindcss"`, built-in container
+queries, `color-mix` opacity, the tone tokens), so a downgrade means rewriting
+the stylesheet, and it would not fix a worker that cannot spawn.
+
 ---
 
 ## Brand
