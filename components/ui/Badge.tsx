@@ -12,7 +12,7 @@ type BadgeProps = {
 
 const tones = {
   solid: "bg-navy text-ice",
-  outline: "border border-line/20 text-fg/75",
+  outline: "border border-line/20 text-fg/85",
   accent: "bg-cyan/25 text-fg",
 } as const;
 

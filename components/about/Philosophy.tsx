@@ -39,12 +39,12 @@ export function Philosophy() {
                 aria-hidden
                 className="wash wash-cyan -right-16 -bottom-16 size-44 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
               />
-              <span className="relative font-accent text-label uppercase tracking-[0.2em] text-cyan/80">
+              <span className="relative font-accent text-label uppercase tracking-[0.2em] text-cyan/90">
                 {principle.index}
               </span>
               <div className="relative">
                 <h3 className="text-subtitle font-semibold text-ice">{principle.title}</h3>
-                <p className="mt-3 text-meta text-ice/75">{principle.body}</p>
+                <p className="mt-3 text-meta text-ice/85">{principle.body}</p>
               </div>
             </Reveal>
           ))}
@@ -54,7 +54,7 @@ export function Philosophy() {
           delay={0.1}
           className="mt-10 flex flex-col gap-4 border-t border-line/14 pt-7 sm:flex-row sm:items-center sm:justify-between"
         >
-          <p className="font-accent text-meta text-ice/60">
+          <p className="font-accent text-meta text-ice/80">
             Based on insights from completed client projects on Upwork.
           </p>
           <TextLink href={links.upwork} external>

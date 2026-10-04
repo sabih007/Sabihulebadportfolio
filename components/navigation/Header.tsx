@@ -70,8 +70,10 @@ export function Header() {
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
                     className={cn(
-                      "group relative inline-flex items-center rounded-full px-4 py-2 text-[0.9375rem] font-medium transition-colors duration-300",
-                      isActive(item.href) ? "text-navy" : "text-fg/65 hover:text-navy",
+                      // Tighter padding at lg so seven items clear the logo and
+                      // the CTA at 1024px; full padding returns at xl.
+                      "group relative inline-flex items-center rounded-full px-3 py-2 text-[0.9375rem] font-medium transition-colors duration-300 xl:px-4",
+                      isActive(item.href) ? "text-navy" : "text-fg/80 hover:text-navy",
                     )}
                   >
                     {item.label}

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { LogoLockup } from "@/components/brand/Logo";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { JsonLd, breadcrumbSchema, contactSchema } from "@/components/layout/StructuredData";
 import { Label } from "@/components/ui/Label";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
@@ -60,6 +61,14 @@ export default function ContactPage() {
 
   return (
     <>
+      <JsonLd data={contactSchema()} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
+
       <PageHeader
         eyebrow="Contact"
         lines={["Tell me what", "you're building."]}
@@ -67,7 +76,7 @@ export default function ContactPage() {
         aside={
           <div className="flex flex-col gap-3">
             <Label>Availability</Label>
-            <p className="max-w-[26ch] text-meta text-fg/70">
+            <p className="max-w-[26ch] text-meta text-fg/80">
               {site.availability}. Working remotely with clients worldwide.
             </p>
           </div>
@@ -98,7 +107,7 @@ export default function ContactPage() {
                   >
                     <MailIcon />
                     <span className="min-w-0">
-                      <span className="block font-accent text-label uppercase tracking-[0.16em] text-fg/65">
+                      <span className="block font-accent text-label uppercase tracking-[0.16em] text-fg/80">
                         Email
                       </span>
                       <span className="mt-1 block truncate text-[0.9375rem] font-medium text-navy transition-colors duration-300 group-hover:text-blue">
@@ -114,7 +123,7 @@ export default function ContactPage() {
                   >
                     <PhoneIcon />
                     <span className="min-w-0">
-                      <span className="block font-accent text-label uppercase tracking-[0.16em] text-fg/65">
+                      <span className="block font-accent text-label uppercase tracking-[0.16em] text-fg/80">
                         Phone
                       </span>
                       <span className="mt-1 block text-[0.9375rem] font-medium text-navy transition-colors duration-300 group-hover:text-blue">
@@ -134,7 +143,7 @@ export default function ContactPage() {
                 {helpful.map((item) => (
                   <li
                     key={item}
-                    className="flex gap-4 border-b border-line/12 py-4 text-[0.9375rem] text-fg/75"
+                    className="flex gap-4 border-b border-line/12 py-4 text-[0.9375rem] text-fg/85"
                   >
                     <span aria-hidden className="mt-2.5 size-1 shrink-0 rounded-full bg-blue/50" />
                     {item}
@@ -168,7 +177,7 @@ export default function ContactPage() {
               <dl className="grid grid-cols-2 items-start gap-x-8 gap-y-6">
                 {credentials.map((item) => (
                   <div key={item.label} className="flex flex-col-reverse gap-1.5">
-                    <dt className="font-accent text-meta text-fg/65">{item.label}</dt>
+                    <dt className="font-accent text-meta text-fg/80">{item.label}</dt>
                     <dd className="text-[1.375rem] leading-none font-bold tracking-[-0.02em] text-navy">
                       {"href" in item && item.href ? (
                         <a

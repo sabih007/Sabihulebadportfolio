@@ -25,7 +25,7 @@ export function Footer() {
             >
               <Logo tone="dark" size={40} responsive={false} />
             </Link>
-            <p className="mt-5 text-body text-ice/70">{site.footerLine}</p>
+            <p className="mt-5 text-body text-ice/85">{site.footerLine}</p>
 
             <ul className="mt-6 flex flex-col gap-2">
               <li>
@@ -51,7 +51,7 @@ export function Footer() {
             <nav aria-labelledby="footer-nav-heading">
               <h2
                 id="footer-nav-heading"
-                className="font-accent text-label uppercase tracking-[0.18em] text-cyan/70"
+                className="font-accent text-label uppercase tracking-[0.18em] text-cyan/85"
               >
                 Navigate
               </h2>
@@ -60,7 +60,7 @@ export function Footer() {
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="text-[0.9375rem] text-ice/75 transition-colors duration-300 hover:text-ice"
+                      className="text-[0.9375rem] text-ice/85 transition-colors duration-300 hover:text-ice"
                     >
                       {item.label}
                     </Link>
@@ -70,7 +70,7 @@ export function Footer() {
             </nav>
 
             <div>
-              <h2 className="font-accent text-label uppercase tracking-[0.18em] text-cyan/70">
+              <h2 className="font-accent text-label uppercase tracking-[0.18em] text-cyan/85">
                 Elsewhere
               </h2>
               <ul className="mt-5 space-y-3">
@@ -81,7 +81,7 @@ export function Footer() {
                       {...(item.external
                         ? { target: "_blank", rel: "noopener noreferrer", "data-cursor": "arrow" }
                         : {})}
-                      className="text-[0.9375rem] text-ice/75 transition-colors duration-300 hover:text-ice"
+                      className="text-[0.9375rem] text-ice/85 transition-colors duration-300 hover:text-ice"
                     >
                       {item.label}
                       {item.external ? (
@@ -96,10 +96,10 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col gap-4 border-t border-line/14 pt-7 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-meta text-ice/55">
+          <p className="text-meta text-ice/75">
             © {year} {site.name}. All rights reserved.
           </p>
-          <p className="font-accent text-meta text-ice/55">{site.signature}</p>
+          <p className="font-accent text-meta text-ice/75">{site.signature}</p>
         </div>
       </div>
     </footer>

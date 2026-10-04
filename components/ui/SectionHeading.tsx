@@ -77,7 +77,7 @@ export function SectionHeading({
         >
           {lead ? (
             <Reveal delay={0.12}>
-              <p className="max-w-[46ch] text-lead text-fg/70 text-pretty-safe">{lead}</p>
+              <p className="max-w-[46ch] text-lead text-fg/80 text-pretty-safe">{lead}</p>
             </Reveal>
           ) : null}
           {aside ? <Reveal delay={0.18}>{aside}</Reveal> : null}

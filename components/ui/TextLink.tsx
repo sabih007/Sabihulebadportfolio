@@ -12,6 +12,12 @@ type TextLinkProps = {
   arrow?: "ne" | "e" | false;
   /** Tones the link down for footers and fine print. */
   muted?: boolean;
+  /**
+   * Set for any URL a visitor supplied — a client's site on their review, say.
+   * Adds `ugc nofollow`, so the review form can never be used to pass link
+   * equity to an arbitrary destination.
+   */
+  ugc?: boolean;
 };
 
 /**
@@ -26,10 +32,11 @@ export function TextLink({
   className,
   arrow = "ne",
   muted = false,
+  ugc = false,
 }: TextLinkProps) {
   const classes = cn(
     "group/link inline-flex items-baseline gap-1.5 text-[0.9375rem] font-medium transition-colors duration-300",
-    muted ? "text-fg/65 hover:text-fg" : "text-accent hover:text-fg",
+    muted ? "text-fg/80 hover:text-fg" : "text-accent hover:text-fg",
     className,
   );
 
@@ -57,7 +64,7 @@ export function TextLink({
       <a
         href={href}
         target="_blank"
-        rel="noopener noreferrer"
+        rel={ugc ? "noopener noreferrer ugc nofollow" : "noopener noreferrer"}
         data-cursor="arrow"
         className={classes}
       >

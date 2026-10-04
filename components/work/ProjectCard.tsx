@@ -72,7 +72,7 @@ export function ProjectCard({
 
       <div className={cn("lg:col-span-5", flipped && "lg:order-1")}>
         <div className="flex items-center gap-4">
-          <span className="font-accent text-label uppercase tracking-[0.2em] text-fg/50">
+          <span className="font-accent text-label uppercase tracking-[0.2em] text-fg/70">
             {project.index}
           </span>
           <span aria-hidden className="h-px flex-1 bg-line/15" />
@@ -90,7 +90,7 @@ export function ProjectCard({
           </Link>
         </h3>
 
-        <p className="mt-4 max-w-[46ch] text-body text-fg/70 text-pretty-safe">
+        <p className="mt-4 max-w-[46ch] text-body text-fg/80 text-pretty-safe">
           {project.description}
         </p>
 
@@ -106,10 +106,10 @@ export function ProjectCard({
               key={item.label}
               className="flex flex-col gap-1 border-b border-line/12 py-3.5 sm:flex-row sm:items-baseline sm:gap-6"
             >
-              <dt className="font-accent text-label uppercase tracking-[0.16em] text-fg/50 sm:w-[6.5rem] sm:shrink-0">
+              <dt className="font-accent text-label uppercase tracking-[0.16em] text-fg/70 sm:w-[6.5rem] sm:shrink-0">
                 {item.label}
               </dt>
-              <dd className="text-meta text-fg/80">{item.value}</dd>
+              <dd className="text-meta text-fg/90">{item.value}</dd>
             </div>
           ))}
         </dl>
@@ -138,7 +138,7 @@ export function ProjectCard({
               target="_blank"
               rel="noopener noreferrer"
               data-cursor="arrow"
-              className="group/link inline-flex items-baseline gap-1.5 text-[0.9375rem] font-medium text-fg/65 transition-colors duration-300 hover:text-blue"
+              className="group/link inline-flex items-baseline gap-1.5 text-[0.9375rem] font-medium text-fg/80 transition-colors duration-300 hover:text-blue"
             >
               <span className="relative">
                 Visit {host ?? "Website"}

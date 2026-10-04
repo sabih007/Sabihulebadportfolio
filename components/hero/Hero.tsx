@@ -68,7 +68,7 @@ export function Hero() {
             initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.08, ease: editorialEase }}
-            className="inline-flex items-center gap-2.5 rounded-full border border-line/14 bg-white/70 px-4 py-2 font-accent text-meta text-fg/75 backdrop-blur-sm"
+            className="inline-flex items-center gap-2.5 rounded-full border border-line/14 bg-white/70 px-4 py-2 font-accent text-meta text-fg/85 backdrop-blur-sm"
           >
             <span aria-hidden className="relative flex size-1.5">
               <span className="absolute inset-0 rounded-full bg-blue" />
@@ -99,7 +99,7 @@ export function Hero() {
             <motion.p
               {...supporting}
               transition={{ duration: 0.8, delay: 0.05, ease: editorialEase }}
-              className="max-w-[48ch] text-lead text-fg/75 text-pretty-safe"
+              className="max-w-[48ch] text-lead text-fg/85 text-pretty-safe"
             >
               {site.shortBio}
             </motion.p>
@@ -134,7 +134,7 @@ export function Hero() {
                       target="_blank"
                       rel="noopener noreferrer"
                       data-cursor="arrow"
-                      className="group inline-flex items-center gap-2 font-accent text-label uppercase tracking-[0.18em] text-fg/65 transition-colors duration-300 hover:text-navy"
+                      className="group inline-flex items-center gap-2 font-accent text-label uppercase tracking-[0.18em] text-fg/80 transition-colors duration-300 hover:text-navy"
                     >
                       <span
                         aria-hidden
@@ -144,7 +144,7 @@ export function Hero() {
                       <span className="sr-only"> (opens in a new tab)</span>
                     </a>
                   ) : (
-                    <span className="inline-flex items-center gap-2 font-accent text-label uppercase tracking-[0.18em] text-fg/65">
+                    <span className="inline-flex items-center gap-2 font-accent text-label uppercase tracking-[0.18em] text-fg/80">
                       <span aria-hidden className="size-1 rounded-full bg-blue/60" />
                       {item.label}
                     </span>

@@ -46,3 +46,6 @@ tsconfig.tsbuildinfo
 
 # licensed font source packages (extracted woff2 lives in app/fonts/)
 *.zip
+
+# feedback store (runtime data — lives on the server, never in git)
+/.data/

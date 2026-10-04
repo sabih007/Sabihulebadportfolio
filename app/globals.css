@@ -74,10 +74,12 @@
   --text-body: 1rem;
   --text-body--line-height: 1.7;
 
-  --text-meta: 0.8125rem;
+  /* Both metadata tiers were lifted one step: 11px uppercase at a low
+     opacity read as a grey smudge rather than as type. */
+  --text-meta: 0.875rem;
   --text-meta--line-height: 1.55;
 
-  --text-label: 0.6875rem;
+  --text-label: 0.75rem;
   --text-label--line-height: 1.1;
   --text-label--letter-spacing: 0.18em;
 
@@ -90,10 +92,18 @@
 /* ------------------------------------------------------------------ */
 /*  Tones                                                              */
 /*                                                                     */
-/*  Minimum text opacities that still clear WCAG AA against each       */
-/*  ground (measured, not estimated):                                  */
-/*    light / ice : fg at 60% → 4.67:1. Use /70 for secondary copy.     */
-/*    dark        : fg at 65% → 4.4:1.  Use /75 for secondary copy.     */
+/*  Text opacity floors.                                               */
+/*                                                                     */
+/*  AA is the floor, not the target. Secondary copy sat at the AA       */
+/*  minimum site-wide (fg/60 on light = 4.67:1, fg/65 on dark = 4.4:1)  */
+/*  and read as washed out, so every tier was lifted one step. These    */
+/*  are now the *lowest* values allowed for anything a visitor reads:   */
+/*    light / ice : /75 for metadata, /80 for body copy.                */
+/*    dark        : /80 for metadata, /85 for body copy.                */
+/*                                                                     */
+/*  Opacities below /40 are decoration only — the star track, the       */
+/*  oversized quote glyph, the watermark numerals — never type that     */
+/*  carries meaning.                                                    */
 /* ------------------------------------------------------------------ */
 
 [data-tone="light"] {

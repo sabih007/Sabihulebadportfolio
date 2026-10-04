@@ -35,7 +35,7 @@ export function Rating({ value, className, showValue = true }: RatingProps) {
           );
         })}
       </span>
-      <span className={cn("text-meta font-medium text-fg/70", !showValue && "sr-only")}>
+      <span className={cn("text-meta font-medium text-fg/80", !showValue && "sr-only")}>
         {rounded.toFixed(1)}
         <span className="sr-only"> out of 5</span>
       </span>

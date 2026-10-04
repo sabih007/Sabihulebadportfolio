@@ -30,7 +30,7 @@ export default function NotFound() {
         <h1 className="mt-8 max-w-[20ch] text-headline font-bold text-navy uppercase text-balance-safe">
           This page doesn&rsquo;t <span className="gradient-text">exist.</span>
         </h1>
-        <p className="mt-7 max-w-[46ch] text-lead text-fg/75">
+        <p className="mt-7 max-w-[46ch] text-lead text-fg/85">
           The link may be out of date, or the page may have moved. The work and the contact
           form are both a click away.
         </p>

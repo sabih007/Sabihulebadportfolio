@@ -63,7 +63,7 @@ export function Faq() {
                       onClick={() => toggle(item.id)}
                       className="group flex w-full items-start gap-5 py-6 text-left"
                     >
-                      <span className="font-accent text-label tabular-nums text-accent/70 pt-1.5">
+                      <span className="font-accent text-label tabular-nums text-accent/85 pt-1.5">
                         {String(index + 1).padStart(2, "0")}
                       </span>
                       <span className="flex-1 text-[1.0625rem] font-medium text-navy transition-colors duration-300 group-hover:text-blue sm:text-[1.1875rem]">
@@ -104,7 +104,7 @@ export function Faq() {
                           {item.answer.map((paragraph, answerIndex) => (
                             <p
                               key={answerIndex}
-                              className="max-w-[58ch] text-body text-fg/70 text-pretty-safe"
+                              className="max-w-[58ch] text-body text-fg/80 text-pretty-safe"
                             >
                               {paragraph}
                             </p>

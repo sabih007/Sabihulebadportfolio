@@ -24,11 +24,11 @@ export function PendingBlock({ title, body, className }: PendingBlockProps) {
         className,
       )}
     >
-      <p className="font-accent text-label uppercase tracking-[0.18em] text-fg/55">
+      <p className="font-accent text-label uppercase tracking-[0.18em] text-fg/70">
         To be confirmed
       </p>
-      <p className="mt-4 text-subtitle font-medium text-fg/90">{title}</p>
-      <p className="mt-3 max-w-[52ch] text-body text-fg/70">{body}</p>
+      <p className="mt-4 text-subtitle font-medium text-fg/95">{title}</p>
+      <p className="mt-3 max-w-[52ch] text-body text-fg/80">{body}</p>
     </div>
   );
 }

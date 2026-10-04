@@ -146,12 +146,12 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                     <Link
                       href={item.href}
                       onClick={onClose}
-                      className="group flex items-baseline justify-between gap-6 py-5 text-[2rem] font-semibold tracking-[-0.025em] text-ice/90 transition-colors duration-300 hover:text-ice"
+                      className="group flex items-baseline justify-between gap-6 py-5 text-[2rem] font-semibold tracking-[-0.025em] text-ice/95 transition-colors duration-300 hover:text-ice"
                     >
                       <span>{item.label}</span>
                       <span
                         aria-hidden
-                        className="font-accent text-label text-cyan/60 transition-colors duration-300 group-hover:text-cyan"
+                        className="font-accent text-label text-cyan/80 transition-colors duration-300 group-hover:text-cyan"
                       >
                         {String(index + 1).padStart(2, "0")}
                       </span>
@@ -179,7 +179,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                       {...(item.external
                         ? { target: "_blank", rel: "noopener noreferrer" }
                         : {})}
-                      className="text-meta font-medium tracking-[0.04em] text-ice/70 transition-colors duration-300 hover:text-cyan"
+                      className="text-meta font-medium tracking-[0.04em] text-ice/85 transition-colors duration-300 hover:text-cyan"
                     >
                       {item.label}
                       {item.external ? <span className="sr-only"> (opens in a new tab)</span> : null}

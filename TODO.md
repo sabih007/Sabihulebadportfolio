@@ -86,3 +86,90 @@ If an approved **vector** (SVG) of the mark becomes available, drop it in and th
 header/footer can switch to it for perfectly crisp rendering at any size. Not
 required: the current raster assets are generated well above their display size
 and were checked for legibility down to 16×16.
+
+---
+
+# SEO & feedback — what to do after deploying
+
+## 8. Turn on the feedback queue — `ADMIN_PASSWORD`
+
+Clients can leave a review at **`/feedback`**. Nothing they write appears on the
+site until you approve it at **`/admin/feedback`**.
+
+1. Set `ADMIN_PASSWORD` in the server environment — **at least 12 characters**.
+   While it is unset, `/admin/feedback` says so plainly and refuses every
+   sign-in. Submitted reviews are still stored safely in the meantime.
+2. Set `FEEDBACK_DATA_DIR` to a directory **outside the deploy folder** if your
+   release process replaces the whole tree, e.g.
+   `FEEDBACK_DATA_DIR=/home/USER/portfolio-data`. Otherwise reviews live in
+   `.data/feedback.json` in the project root and are lost on the next deploy.
+   This is the single most important setting to get right.
+3. Back that directory up like any other data. It is one small JSON file.
+
+How the queue works:
+
+- **Publish** puts the review on the homepage and `/reviews` immediately.
+- **Feature** promotes one review to the large pull-quote slot. Only one at a
+  time; featuring a new one clears the old.
+- **Hide** takes it off the site but keeps the text, so it is reversible.
+- **Delete** is permanent — for spam.
+- A review where the client **did not tick publish consent** can never be
+  approved. The server refuses it, not just the UI.
+
+Email delivery is optional here: a new review triggers a notification through
+the same SMTP setup as the contact form, but the review is **stored first**, so
+a mail outage cannot lose it.
+
+## 9. Google Search Console — do this on launch day
+
+1. Add the property at [search.google.com/search-console](https://search.google.com/search-console)
+   as a **Domain** property if you can edit DNS (covers www and non-www), or a
+   **URL prefix** property otherwise.
+2. For URL-prefix verification choose **HTML tag**, copy the `content` value
+   only, and set it as `GOOGLE_SITE_VERIFICATION` in the environment. Redeploy,
+   then press Verify. (`BING_SITE_VERIFICATION` does the same for Bing
+   Webmaster Tools.)
+3. Submit `https://sabihulebad.com/sitemap.xml` under **Sitemaps**.
+4. Use **URL Inspection → Request indexing** once for `/`, `/work`, `/services`,
+   `/reviews` and each case study. After that, leave it alone — repeatedly
+   requesting indexing does nothing.
+5. Check **Page indexing** after a week or two for anything excluded.
+
+Expect weeks, not days. A new domain has no history, and nothing legitimate
+changes that.
+
+## 10. Analytics (optional)
+
+Set **one** of these and it loads automatically, after interactive so it stays
+off the critical path:
+
+- `NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX` — Google Analytics 4.
+- `NEXT_PUBLIC_PLAUSIBLE_DOMAIN=sabihulebad.com` — Plausible (no cookie banner
+  needed; it sets no cookies).
+
+Leave both unset and the site ships no third-party script at all.
+
+## 11. What is already handled in code
+
+No action needed on any of these — listed so they are not redone by hand:
+
+- Canonical URLs, Open Graph and Twitter cards on every route (`lib/utils/metadata.ts`).
+- `sitemap.xml` with honest `lastModified` dates, and `robots.txt` disallowing
+  `/api/` and `/admin/`.
+- Structured data: `Person`, `WebSite` and `ProfessionalService` site-wide;
+  `BreadcrumbList` on every inner page; `FAQPage` on the homepage;
+  `OfferCatalog` on `/services`; `CreativeWork` per case study; `Review` and
+  `AggregateRating` on `/reviews`.
+- `noindex` on the admin queue.
+- Client-supplied URLs in reviews carry `rel="ugc nofollow"`, so the form cannot
+  be used for link spam.
+- Web app manifest at `/manifest.webmanifest`.
+
+### The two things code cannot fix
+
+1. **Project screenshots** (item 4 above). Image-less case studies are the
+   biggest remaining gap — real screenshots with descriptive `alt` text help
+   both rankings and conversion.
+2. **Content depth.** Four case studies with `features` and `outcome` still
+   pending (items 4–5) is thin for the queries worth ranking for. Filling those
+   in will move the needle further than any further technical work.

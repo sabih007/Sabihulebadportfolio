@@ -76,7 +76,7 @@ export function HeroComposition() {
         className="absolute top-0 right-0 flex items-center gap-3"
       >
         <span className="gradient-rule h-px w-16 rounded-full" />
-        <span className="font-accent text-[0.5625rem] uppercase tracking-[0.22em] text-navy/55">
+        <span className="font-accent text-[0.5625rem] uppercase tracking-[0.22em] text-navy/70">
           Selected builds
         </span>
       </motion.div>

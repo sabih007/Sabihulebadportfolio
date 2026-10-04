@@ -55,7 +55,7 @@ export function FinalCta() {
 
         <div className="mt-12 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <Reveal delay={0.12} className="max-w-xl">
-            <p className="text-lead text-ice/80 text-pretty-safe">
+            <p className="text-lead text-ice/90 text-pretty-safe">
               Tell me what you&rsquo;re working on and let&rsquo;s see how I can help bring it
               to life.
             </p>
@@ -80,7 +80,7 @@ export function FinalCta() {
                     {...(item.external
                       ? { target: "_blank", rel: "noopener noreferrer", "data-cursor": "arrow" }
                       : {})}
-                    className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-ice/75 transition-colors duration-300 hover:text-cyan"
+                    className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-ice/85 transition-colors duration-300 hover:text-cyan"
                   >
                     <span
                       aria-hidden
@@ -94,7 +94,7 @@ export function FinalCta() {
                 </li>
               ))}
             </ul>
-            <p className="mt-6 max-w-[34ch] font-accent text-meta text-ice/60">
+            <p className="mt-6 max-w-[34ch] font-accent text-meta text-ice/80">
               {site.availability}. Based remote, working with clients worldwide.
             </p>
           </Reveal>

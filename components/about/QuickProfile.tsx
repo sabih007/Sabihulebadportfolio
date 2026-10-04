@@ -32,7 +32,7 @@ export function QuickProfile() {
             <h3 className="text-subtitle font-semibold text-navy text-balance-safe sm:text-[1.75rem] sm:leading-tight">
               Building digital products &amp; websites
             </h3>
-            <p className="mt-4 max-w-[38ch] text-body text-fg/70">
+            <p className="mt-4 max-w-[38ch] text-body text-fg/80">
               Working with clients on polished digital experiences — from the first
               interface decision through to a site that holds up in production.
             </p>
@@ -59,9 +59,9 @@ export function QuickProfile() {
                 <div>
                   <Label rule>Recent Work</Label>
                   <h3 className="mt-6 text-title font-semibold text-ice">{recent.title}</h3>
-                  <p className="mt-2 font-accent text-meta text-cyan/85">{recent.category}</p>
+                  <p className="mt-2 font-accent text-meta text-cyan/95">{recent.category}</p>
                 </div>
-                <Badge tone="outline" className="hidden shrink-0 border-ice/25 text-ice/80 sm:inline-flex">
+                <Badge tone="outline" className="hidden shrink-0 border-ice/25 text-ice/90 sm:inline-flex">
                   {recent.index}
                 </Badge>
               </div>
@@ -109,7 +109,7 @@ export function QuickProfile() {
             <ul className="mt-6 flex flex-wrap gap-2">
               {focusAreas.map((area) => (
                 <li key={area}>
-                  <span className="inline-flex rounded-full border border-navy/15 bg-white/70 px-3 py-1.5 text-[0.8125rem] font-medium text-navy/85">
+                  <span className="inline-flex rounded-full border border-navy/15 bg-white/70 px-3 py-1.5 text-[0.8125rem] font-medium text-navy/95">
                     {area}
                   </span>
                 </li>

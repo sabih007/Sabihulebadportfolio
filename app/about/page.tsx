@@ -7,6 +7,7 @@ import { ExperienceSection } from "@/components/experience/ExperienceSection";
 import { Expertise } from "@/components/expertise/Expertise";
 import { Marquee } from "@/components/expertise/Marquee";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { JsonLd, aboutSchema, breadcrumbSchema } from "@/components/layout/StructuredData";
 import { TextLink } from "@/components/ui/TextLink";
 import { Label } from "@/components/ui/Label";
 import { Reveal } from "@/components/ui/Reveal";
@@ -53,6 +54,14 @@ const process = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={aboutSchema()} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ])}
+      />
+
       <PageHeader
         eyebrow="About"
         lines={["Design, development", "and the thinking", "in between."]}
@@ -61,7 +70,7 @@ export default function AboutPage() {
           <dl className="grid grid-cols-2 items-start gap-x-10 gap-y-6 sm:grid-cols-4 lg:gap-x-12">
             {credentials.map((item) => (
               <div key={item.label} className="flex flex-col-reverse gap-2">
-                <dt className="font-accent text-meta text-fg/65">{item.label}</dt>
+                <dt className="font-accent text-meta text-fg/80">{item.label}</dt>
                 <dd className="text-[1.5rem] leading-none font-bold tracking-[-0.02em] text-navy">
                   {"href" in item && item.href ? (
                     <a
@@ -103,7 +112,7 @@ export default function AboutPage() {
               </h2>
             </Reveal>
             <Reveal delay={0.12}>
-              <p className="mt-5 max-w-[42ch] text-body text-fg/70">
+              <p className="mt-5 max-w-[42ch] text-body text-fg/80">
                 Every project is different, but the order of decisions rarely is. This is the
                 sequence that keeps timelines honest and avoids expensive rework.
               </p>
@@ -124,12 +133,12 @@ export default function AboutPage() {
                 distance={16}
                 className="flex flex-col gap-3 border-t border-line/12 py-7 sm:flex-row sm:gap-10 last:border-b last:border-line/12"
               >
-                <span className="font-accent text-label uppercase tracking-[0.2em] text-fg/65 sm:w-16 sm:shrink-0 sm:pt-1.5">
+                <span className="font-accent text-label uppercase tracking-[0.2em] text-fg/80 sm:w-16 sm:shrink-0 sm:pt-1.5">
                   {step.index}
                 </span>
                 <div className="flex-1">
                   <h3 className="text-subtitle font-semibold text-navy">{step.title}</h3>
-                  <p className="mt-3 max-w-[58ch] text-body text-fg/70 text-pretty-safe">
+                  <p className="mt-3 max-w-[58ch] text-body text-fg/80 text-pretty-safe">
                     {step.body}
                   </p>
                 </div>
@@ -164,13 +173,13 @@ export default function AboutPage() {
 
           <div className="lg:col-span-7">
             <Reveal delay={0.1}>
-              <p className="max-w-[56ch] text-lead text-fg/80 text-pretty-safe">
+              <p className="max-w-[56ch] text-lead text-fg/90 text-pretty-safe">
                 Client work has been delivered remotely across time zones for years. That only
                 works when communication is deliberate rather than occasional.
               </p>
             </Reveal>
             <Reveal delay={0.16}>
-              <p className="mt-5 max-w-[56ch] text-body text-fg/70 text-pretty-safe">
+              <p className="mt-5 max-w-[56ch] text-body text-fg/80 text-pretty-safe">
                 You will know what is in progress, what is blocked and what I need from you. If
                 something is going to take longer than expected, you hear it from me before it
                 becomes a problem — which is the part clients mention most in their feedback.

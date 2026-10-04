@@ -16,8 +16,11 @@ import { featuredTestimonial, ratingOnlyWork, supportingTestimonials } from "@/d
  * review is attributed by project title, rating and date instead. Contract
  * values are never displayed.
  */
-export function Testimonials() {
+export function Testimonials({ limit }: { limit?: number } = {}) {
   const paragraphs = featuredTestimonial.quote?.split("\n\n") ?? [];
+  const supporting =
+    typeof limit === "number" ? supportingTestimonials.slice(0, limit) : supportingTestimonials;
+  const withheld = supportingTestimonials.length - supporting.length;
 
   return (
     <Section id="testimonials" tone="dark" flush="top" aria-labelledby="testimonials-heading">
@@ -27,9 +30,14 @@ export function Testimonials() {
         lines={["In their", "own words."]}
         lead="Feedback from completed Upwork contracts, quoted exactly as clients wrote it."
         aside={
-          <TextLink href={links.upwork} external>
-            Read every review on Upwork
-          </TextLink>
+          <div className="flex flex-col gap-3">
+            <TextLink href="/reviews" arrow="e">
+              {withheld > 0 ? `Read all ${supportingTestimonials.length + 1} reviews` : "See every review"}
+            </TextLink>
+            <TextLink href={links.upwork} external muted>
+              Read them on Upwork
+            </TextLink>
+          </div>
         }
       />
 
@@ -57,7 +65,7 @@ export function Testimonials() {
                     className={
                       index === 0
                         ? "text-subtitle font-medium text-ice text-pretty-safe sm:text-[1.5rem] sm:leading-[1.45]"
-                        : "max-w-[62ch] text-body text-ice/75 text-pretty-safe"
+                        : "max-w-[62ch] text-body text-ice/85 text-pretty-safe"
                     }
                   >
                     {paragraph}
@@ -71,7 +79,7 @@ export function Testimonials() {
 
               <dl className="mt-7 space-y-5">
                 <div>
-                  <dt className="font-accent text-label uppercase tracking-[0.16em] text-cyan/80">
+                  <dt className="font-accent text-label uppercase tracking-[0.16em] text-cyan/90">
                     Project
                   </dt>
                   <dd className="mt-1.5 text-[1.0625rem] font-medium text-ice">
@@ -79,7 +87,7 @@ export function Testimonials() {
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-accent text-label uppercase tracking-[0.16em] text-cyan/80">
+                  <dt className="font-accent text-label uppercase tracking-[0.16em] text-cyan/90">
                     Rating
                   </dt>
                   <dd className="mt-2">
@@ -88,10 +96,10 @@ export function Testimonials() {
                 </div>
                 {featuredTestimonial.date ? (
                   <div>
-                    <dt className="font-accent text-label uppercase tracking-[0.16em] text-cyan/80">
+                    <dt className="font-accent text-label uppercase tracking-[0.16em] text-cyan/90">
                       Dates
                     </dt>
-                    <dd className="mt-1.5 text-meta tabular-nums text-ice/80">
+                    <dd className="mt-1.5 text-meta tabular-nums text-ice/90">
                       {featuredTestimonial.date}
                     </dd>
                   </div>
@@ -100,7 +108,7 @@ export function Testimonials() {
 
               {featuredTestimonial.endorsements?.length ? (
                 <div className="mt-8">
-                  <p className="font-accent text-label uppercase tracking-[0.16em] text-cyan/80">
+                  <p className="font-accent text-label uppercase tracking-[0.16em] text-cyan/90">
                     Endorsed for
                   </p>
                   <ul className="mt-3 flex flex-wrap gap-2">
@@ -119,17 +127,30 @@ export function Testimonials() {
 
       {/* Supporting reviews — asymmetric editorial grid */}
       <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {supportingTestimonials.map((testimonial, index) => (
+        {supporting.map((testimonial, index) => (
           <ReviewCard key={testimonial.project} testimonial={testimonial} delay={index * 0.05} />
         ))}
       </ul>
 
-      {/* Rating-only contracts: compact indicators, never given invented quotes */}
+      {/* The full set lives on /reviews, so the homepage shows a selection and
+          the two pages never compete as near-duplicate content. */}
+      {withheld > 0 ? (
+        <Reveal delay={0.08} className="mt-8">
+          <TextLink href="/reviews" arrow="e">
+            {withheld} more {withheld === 1 ? "review" : "reviews"}, plus feedback left on this
+            site
+          </TextLink>
+        </Reveal>
+      ) : null}
+
+      {/* Rating-only contracts: compact indicators, never given invented quotes.
+          Shown in full only where the whole record belongs — /reviews. */}
+      {typeof limit === "number" ? null : (
       <Reveal delay={0.08} className="mt-14 border-t border-line/16 pt-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
           <div className="max-w-[46ch]">
             <Label>Also completed</Label>
-            <p className="mt-3 text-meta text-ice/70">
+            <p className="mt-3 text-meta text-ice/85">
               Further Upwork contracts rated by the client without written feedback. Listed
               for completeness; no quotes are attributed to them.
             </p>
@@ -142,11 +163,11 @@ export function Testimonials() {
                 className="rounded-card border border-line/14 bg-raised/50 p-4"
               >
                 <Rating value={entry.rating} />
-                <p className="mt-3 text-[0.8125rem] leading-snug font-medium text-ice/90">
+                <p className="mt-3 text-[0.8125rem] leading-snug font-medium text-ice/95">
                   {entry.project}
                 </p>
                 {entry.date ? (
-                  <p className="mt-1.5 font-accent text-[0.6875rem] tabular-nums text-ice/60">
+                  <p className="mt-1.5 font-accent text-[0.6875rem] tabular-nums text-ice/80">
                     {entry.date}
                   </p>
                 ) : null}
@@ -155,6 +176,7 @@ export function Testimonials() {
           </ul>
         </div>
       </Reveal>
+      )}
     </Section>
   );
 }
@@ -176,14 +198,14 @@ function ReviewCard({
         <Rating value={testimonial.rating} />
 
         <blockquote className="mt-5 flex-1">
-          <p className="text-[1.0625rem] leading-[1.6] text-ice/90 text-pretty-safe">
+          <p className="text-[1.0625rem] leading-[1.6] text-ice/95 text-pretty-safe">
             {testimonial.quote}
           </p>
         </blockquote>
 
         <figcaption className="mt-7 border-t border-line/14 pt-5">
           <p className="text-[0.875rem] font-medium text-ice">{testimonial.project}</p>
-          <p className="mt-1.5 font-accent text-[0.75rem] tabular-nums text-ice/60">
+          <p className="mt-1.5 font-accent text-[0.75rem] tabular-nums text-ice/80">
             {testimonial.date} <span aria-hidden>·</span> Upwork Review
           </p>
 
@@ -191,7 +213,7 @@ function ReviewCard({
             <ul className="mt-4 flex flex-wrap gap-1.5">
               {testimonial.endorsements.map((item) => (
                 <li key={item}>
-                  <span className="inline-flex rounded-full border border-line/18 px-2.5 py-1 text-[0.625rem] font-medium tracking-[0.08em] text-ice/75 uppercase">
+                  <span className="inline-flex rounded-full border border-line/18 px-2.5 py-1 text-[0.625rem] font-medium tracking-[0.08em] text-ice/85 uppercase">
                     {item}
                   </span>
                 </li>

@@ -25,7 +25,7 @@ export function Marquee() {
       <div aria-hidden className="marquee-track">
         {sequence.map((item, index) => (
           <span key={`${item}-${index}`} className="flex items-center whitespace-nowrap">
-            <span className="px-5 text-[0.9375rem] font-medium tracking-[0.08em] text-navy/70 uppercase sm:px-7 sm:text-[1.0625rem]">
+            <span className="px-5 text-[0.9375rem] font-medium tracking-[0.08em] text-navy/80 uppercase sm:px-7 sm:text-[1.0625rem]">
               {item}
             </span>
             <span className="text-blue/45">—</span>

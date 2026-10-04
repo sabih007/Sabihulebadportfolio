@@ -120,8 +120,8 @@ function Fallback({
             className={cn(
               "mx-auto max-w-[62%] truncate rounded-full border px-[0.8em] py-[0.25em] font-accent leading-none",
               dark
-                ? "border-ice/12 bg-ice/8 text-ice/70"
-                : "border-navy/10 bg-navy/4 text-navy/60",
+                ? "border-ice/12 bg-ice/8 text-ice/85"
+                : "border-navy/10 bg-navy/4 text-navy/75",
               mini
                 ? "text-[min(3.4cqw,0.5625rem)]"
                 : "text-[min(2.3cqw,0.6875rem)] tracking-[0.06em]",
@@ -153,7 +153,7 @@ function Fallback({
         <p
           className={cn(
             "relative font-accent uppercase",
-            dark ? "text-cyan/85" : "text-navy/55",
+            dark ? "text-cyan/95" : "text-navy/70",
             mini
               ? "text-[min(3.2cqw,0.5rem)] tracking-[0.14em]"
               : "text-[min(2.2cqw,0.6875rem)] tracking-[0.18em]",
@@ -177,7 +177,7 @@ function Fallback({
           <p
             className={cn(
               "mt-[0.45em] font-accent leading-snug",
-              dark ? "text-ice/70" : "text-navy/60",
+              dark ? "text-ice/85" : "text-navy/75",
               mini ? "text-[min(4cqw,0.625rem)]" : "text-[min(2.9cqw,0.9375rem)]",
             )}
           >

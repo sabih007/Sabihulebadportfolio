@@ -26,18 +26,18 @@ export function Expertise() {
           >
             <div className="flex items-baseline justify-between gap-4">
               <h3 className="text-subtitle font-semibold text-navy">{group.title}</h3>
-              <span className="font-accent text-label tabular-nums text-accent/70">
+              <span className="font-accent text-label tabular-nums text-accent/85">
                 {String(index + 1).padStart(2, "0")}
               </span>
             </div>
 
-            <p className="mt-3 max-w-[30ch] font-accent text-meta text-fg/65">{group.note}</p>
+            <p className="mt-3 max-w-[30ch] font-accent text-meta text-fg/80">{group.note}</p>
 
             <ul className="mt-6 space-y-2.5">
               {group.items.map((item) => (
                 <li
                   key={item}
-                  className="group flex items-center gap-3 text-[0.9375rem] text-fg/80"
+                  className="group flex items-center gap-3 text-[0.9375rem] text-fg/90"
                 >
                   <span
                     aria-hidden

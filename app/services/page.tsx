@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { FinalCta } from "@/components/contact/FinalCta";
 import { Faq } from "@/components/faq/Faq";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { JsonLd, breadcrumbSchema, servicesSchema } from "@/components/layout/StructuredData";
 import { Marquee } from "@/components/expertise/Marquee";
 import { Expertise } from "@/components/expertise/Expertise";
 import { Services } from "@/components/services/Services";
@@ -46,6 +47,14 @@ const engagement = [
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={servicesSchema()} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+        ])}
+      />
+
       <PageHeader
         eyebrow="Services"
         lines={["Development,", "design, and the", "bit in between."]}
@@ -53,7 +62,7 @@ export default function ServicesPage() {
         aside={
           <div className="flex flex-col gap-3">
             <Label>Engagements</Label>
-            <p className="max-w-[28ch] text-meta text-fg/70">
+            <p className="max-w-[28ch] text-meta text-fg/80">
               New builds, redesigns, and ongoing development after launch.
             </p>
           </div>
@@ -94,12 +103,12 @@ export default function ServicesPage() {
                 distance={16}
                 className="flex flex-col gap-3 border-t border-line/16 py-7 last:border-b last:border-line/16 sm:flex-row sm:gap-10"
               >
-                <span className="font-accent text-label uppercase tracking-[0.2em] text-cyan/85 sm:w-16 sm:shrink-0 sm:pt-1.5">
+                <span className="font-accent text-label uppercase tracking-[0.2em] text-cyan/95 sm:w-16 sm:shrink-0 sm:pt-1.5">
                   {item.index}
                 </span>
                 <div className="flex-1">
                   <h3 className="text-subtitle font-semibold text-ice">{item.title}</h3>
-                  <p className="mt-3 max-w-[58ch] text-body text-fg/70 text-pretty-safe">
+                  <p className="mt-3 max-w-[58ch] text-body text-fg/80 text-pretty-safe">
                     {item.body}
                   </p>
                 </div>

@@ -36,14 +36,14 @@ export function CaseStudyNarrative({ blocks }: { blocks: NarrativeBlock[] }) {
               </h2>
             </div>
             {block.note ? (
-              <p className="mt-3 max-w-[30ch] font-accent text-meta text-fg/60 lg:ml-[2.75rem]">
+              <p className="mt-3 max-w-[30ch] font-accent text-meta text-fg/75 lg:ml-[2.75rem]">
                 {block.note}
               </p>
             ) : null}
           </div>
 
           <div className="lg:col-span-8">
-            <div className="max-w-[64ch] space-y-5 text-lead text-fg/80 text-pretty-safe">
+            <div className="max-w-[64ch] space-y-5 text-lead text-fg/90 text-pretty-safe">
               {block.body}
             </div>
           </div>

@@ -65,10 +65,10 @@ export function AboutIntro({ withLink = true, as: Tag = "h2", id = "about" }: Ab
 
         <div className="lg:col-span-5 lg:pt-16">
           <Reveal delay={0.1}>
-            <p className="max-w-[52ch] text-lead text-fg/85 text-pretty-safe">{site.longBio}</p>
+            <p className="max-w-[52ch] text-lead text-fg/90 text-pretty-safe">{site.longBio}</p>
           </Reveal>
           <Reveal delay={0.16}>
-            <p className="mt-6 max-w-[52ch] text-body text-fg/70 text-pretty-safe">
+            <p className="mt-6 max-w-[52ch] text-body text-fg/80 text-pretty-safe">
               In practice most projects do not fail on code. They drift because nobody
               asked what the site was really for, because the design could not survive
               being built, or because communication thinned out halfway through. I work
@@ -97,7 +97,7 @@ export function AboutIntro({ withLink = true, as: Tag = "h2", id = "about" }: Ab
               {item.index}
             </span>
             <h3 className="mt-4 text-[1.0625rem] font-semibold text-navy">{item.title}</h3>
-            <p className="mt-2 max-w-[34ch] text-meta text-fg/70">{item.body}</p>
+            <p className="mt-2 max-w-[34ch] text-meta text-fg/80">{item.body}</p>
           </Reveal>
         ))}
       </ul>

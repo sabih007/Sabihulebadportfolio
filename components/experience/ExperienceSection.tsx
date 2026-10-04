@@ -45,10 +45,10 @@ export function ExperienceSection() {
                   <span className="block text-[2rem] leading-none font-bold tracking-[-0.03em] text-ice sm:text-[2.5rem]">
                     {fact.value}
                   </span>
-                  <span className="mt-3 block text-[0.8125rem] font-medium text-ice/85">
+                  <span className="mt-3 block text-[0.8125rem] font-medium text-ice/90">
                     {fact.label}
                   </span>
-                  <span className="mt-1.5 block max-w-[24ch] text-meta text-ice/65">
+                  <span className="mt-1.5 block max-w-[24ch] text-meta text-ice/80">
                     {fact.note}
                   </span>
                 </dd>
@@ -77,7 +77,7 @@ export function ExperienceSection() {
                 <Label rule className="mb-6">
                   Client engagement record
                 </Label>
-                <p className="mb-7 max-w-[56ch] text-meta text-ice/70">
+                <p className="mb-7 max-w-[56ch] text-meta text-ice/85">
                   Completed contracts from the public Upwork profile, most recent first.
                   Titles and dates exactly as the client recorded them. Contract values are
                   deliberately not shown.
@@ -89,10 +89,10 @@ export function ExperienceSection() {
                       key={`${entry.project}-${entry.date}`}
                       className="flex flex-col gap-2 border-b border-line/14 py-4 sm:flex-row sm:items-center sm:gap-6"
                     >
-                      <span className="font-accent text-meta tabular-nums whitespace-nowrap text-cyan/80 sm:w-52 sm:shrink-0">
+                      <span className="font-accent text-meta tabular-nums whitespace-nowrap text-cyan/90 sm:w-52 sm:shrink-0">
                         {entry.date}
                       </span>
-                      <span className="flex-1 text-[0.9375rem] text-ice/90">
+                      <span className="flex-1 text-[0.9375rem] text-ice/95">
                         {entry.project}
                       </span>
                       <span className="shrink-0">

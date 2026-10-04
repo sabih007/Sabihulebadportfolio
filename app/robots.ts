@@ -8,8 +8,13 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        // The inquiry endpoint is a mutation, not content.
-        disallow: ["/api/"],
+        disallow: [
+          // Mutation endpoints, not content.
+          "/api/",
+          // The moderation queue. The page also sends `noindex`, and it is
+          // password-gated — this just keeps it out of the crawl budget.
+          "/admin/",
+        ],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

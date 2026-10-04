@@ -42,7 +42,7 @@ export function SelectedWork() {
       </div>
 
       <Reveal className="mt-20 border-t border-line/12 pt-8">
-        <p className="max-w-[60ch] text-body text-fg/65">
+        <p className="max-w-[60ch] text-body text-fg/80">
           Four projects, four briefs, one constant: each was built from an empty
           repository rather than adapted from a template — which is why they could be
           shaped around the business behind them.

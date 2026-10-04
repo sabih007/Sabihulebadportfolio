@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { PageHeader } from "@/components/layout/PageHeader";
-import { JsonLd } from "@/components/layout/StructuredData";
+import { JsonLd, breadcrumbSchema } from "@/components/layout/StructuredData";
 import { Arrow } from "@/components/ui/Arrow";
 import { BuiltFromScratchBadge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
@@ -88,6 +88,13 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
   return (
     <>
       <JsonLd data={schema} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Work", path: "/work" },
+          { name: project.title, path: `/work/` },
+        ])}
+      />
 
       <PageHeader
         eyebrow={`${project.index} — ${project.category}`}
@@ -132,7 +139,7 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
               distance={14}
               className="flex flex-col gap-2.5 border-t border-line/12 py-5 lg:pr-6"
             >
-              <dt className="font-accent text-label uppercase tracking-[0.16em] text-fg/65">
+              <dt className="font-accent text-label uppercase tracking-[0.16em] text-fg/80">
                 {fact.label}
               </dt>
               <dd className="text-[1.0625rem] font-medium text-navy">{fact.value}</dd>
@@ -212,7 +219,7 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
                   {project.features.map((feature) => (
                     <li
                       key={feature}
-                      className="flex gap-4 border-t border-line/12 py-5 text-body text-fg/80"
+                      className="flex gap-4 border-t border-line/12 py-5 text-body text-fg/90"
                     >
                       <span
                         aria-hidden
@@ -278,7 +285,7 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
               </div>
             </Reveal>
             <div className="shell">
-              <p className="mt-6 max-w-[56ch] font-accent text-meta text-fg/65">
+              <p className="mt-6 max-w-[56ch] font-accent text-meta text-fg/80">
                 Interface captures from the live site are being prepared. Until then the live
                 build is linked below.
               </p>
@@ -301,7 +308,7 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
           <div className="lg:col-span-8">
             {project.outcome ? (
               <Reveal>
-                <p className="max-w-[64ch] text-lead text-fg/80 text-pretty-safe">
+                <p className="max-w-[64ch] text-lead text-fg/90 text-pretty-safe">
                   {project.outcome}
                 </p>
               </Reveal>
@@ -337,7 +344,7 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
               </h2>
             </Reveal>
             <Reveal delay={0.12}>
-              <p className="mt-5 max-w-[42ch] text-body text-fg/70">
+              <p className="mt-5 max-w-[42ch] text-body text-fg/80">
                 Only the technologies actually used on this project are listed. Nothing is
                 added to lengthen the stack.
               </p>
@@ -363,7 +370,7 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
                 {project.services.map((service) => (
                   <li
                     key={service}
-                    className="flex items-center gap-3 border-b border-line/12 py-3 text-[0.9375rem] text-fg/75"
+                    className="flex items-center gap-3 border-b border-line/12 py-3 text-[0.9375rem] text-fg/85"
                   >
                     <span aria-hidden className="size-1 shrink-0 rounded-full bg-blue/50" />
                     {service}
@@ -412,8 +419,8 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
               >
                 {next.title}
               </h2>
-              <p className="mt-2 font-accent text-meta text-cyan/85">{next.category}</p>
-              <p className="mt-5 max-w-[42ch] text-body text-ice/80">{next.description}</p>
+              <p className="mt-2 font-accent text-meta text-cyan/95">{next.category}</p>
+              <p className="mt-5 max-w-[42ch] text-body text-ice/90">{next.description}</p>
               <span className="mt-7 inline-flex items-baseline gap-2 text-[0.9375rem] font-semibold text-ice">
                 <span className="relative">
                   View Case Study

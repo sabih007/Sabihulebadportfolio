@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils/cn";
 type Status = "idle" | "submitting" | "success" | "error";
 
 const fieldBase =
-  "w-full rounded-card border bg-white px-4 py-3.5 text-[0.9375rem] text-navy placeholder:text-navy/35 transition-colors duration-300 focus:outline-none focus-visible:border-blue";
+  "w-full rounded-card border bg-white px-4 py-3.5 text-[0.9375rem] text-navy placeholder:text-navy/55 transition-colors duration-300 focus:outline-none focus-visible:border-blue";
 
 /**
  * Inquiry form.
@@ -123,7 +123,7 @@ export function ContactForm() {
           Message sent
         </p>
         <h3 className="mt-5 text-title font-semibold text-navy">Thanks — it&rsquo;s through.</h3>
-        <p className="mt-4 max-w-[46ch] text-body text-fg/75">
+        <p className="mt-4 max-w-[46ch] text-body text-fg/85">
           I read every inquiry personally and will come back to you with questions or next
           steps.
         </p>
@@ -265,7 +265,7 @@ export function ContactForm() {
             className="rounded-card border border-blue/30 bg-blue/8 px-4 py-3.5"
           >
             <p className="text-meta text-navy">{message}</p>
-            <p className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-1 text-meta text-fg/70">
+            <p className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-1 text-meta text-fg/80">
               <TextLink href={contact.email.href} arrow={false} muted>
                 {contact.email.display}
               </TextLink>
@@ -284,7 +284,7 @@ export function ContactForm() {
         <Button type="submit" variant="primary" arrow="ne" disabled={status === "submitting"}>
           {status === "submitting" ? "Sending…" : "Send Inquiry"}
         </Button>
-        <p className="max-w-[34ch] font-accent text-meta text-fg/60">
+        <p className="max-w-[34ch] font-accent text-meta text-fg/75">
           Your details are used only to reply to this inquiry.
         </p>
       </div>
@@ -316,7 +316,7 @@ function Field({
     <div className="flex flex-col gap-2">
       <label
         htmlFor={name}
-        className="flex items-baseline gap-2 font-accent text-label uppercase tracking-[0.16em] text-navy/70"
+        className="flex items-baseline gap-2 font-accent text-label uppercase tracking-[0.16em] text-navy/80"
       >
         {label}
         {/* blue-solid rather than blue: #4274D9 measures 4.44:1 on white,
@@ -327,7 +327,7 @@ function Field({
             <span className="sr-only">required</span>
           </span>
         ) : null}
-        {optional ? <span className="normal-case tracking-normal text-fg/50">optional</span> : null}
+        {optional ? <span className="normal-case tracking-normal text-fg/70">optional</span> : null}
       </label>
       {children}
       {error ? (

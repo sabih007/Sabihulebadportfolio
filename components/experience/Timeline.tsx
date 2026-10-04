@@ -53,7 +53,7 @@ export function Timeline({ entries }: TimelineProps) {
                   <span className="block text-subtitle font-semibold text-fg transition-colors duration-300">
                     {entry.role}
                   </span>
-                  <span className="mt-1 block text-meta text-fg/70">
+                  <span className="mt-1 block text-meta text-fg/80">
                     {entry.organisation}
                     {entry.locationType ? (
                       <>
@@ -67,7 +67,7 @@ export function Timeline({ entries }: TimelineProps) {
                 <span
                   aria-hidden
                   className={cn(
-                    "mt-1.5 inline-flex size-8 shrink-0 items-center justify-center rounded-full border border-line/20 text-fg/70 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:border-line/45 group-hover:text-fg",
+                    "mt-1.5 inline-flex size-8 shrink-0 items-center justify-center rounded-full border border-line/20 text-fg/80 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:border-line/45 group-hover:text-fg",
                     open && "rotate-180 border-accent/60 bg-accent/15 text-fg",
                   )}
                 >
@@ -98,10 +98,10 @@ export function Timeline({ entries }: TimelineProps) {
                   className="overflow-hidden"
                 >
                   <div className="pb-8 sm:pl-[11.5rem]">
-                    <p className="max-w-[60ch] text-body text-fg/80">{entry.summary}</p>
+                    <p className="max-w-[60ch] text-body text-fg/90">{entry.summary}</p>
 
                     {entry.detail?.map((paragraph, index) => (
-                      <p key={index} className="mt-4 max-w-[60ch] text-body text-fg/70">
+                      <p key={index} className="mt-4 max-w-[60ch] text-body text-fg/80">
                         {paragraph}
                       </p>
                     ))}
@@ -110,7 +110,7 @@ export function Timeline({ entries }: TimelineProps) {
                       <ul className="mt-6 flex flex-wrap gap-2">
                         {entry.technologies.map((tech) => (
                           <li key={tech}>
-                            <span className="inline-flex rounded-full border border-line/18 px-3 py-1.5 text-[0.75rem] font-medium text-fg/80">
+                            <span className="inline-flex rounded-full border border-line/18 px-3 py-1.5 text-[0.75rem] font-medium text-fg/90">
                               {tech}
                             </span>
                           </li>

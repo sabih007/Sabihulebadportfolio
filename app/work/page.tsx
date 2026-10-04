@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { FinalCta } from "@/components/contact/FinalCta";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { JsonLd } from "@/components/layout/StructuredData";
+import { JsonLd, breadcrumbSchema } from "@/components/layout/StructuredData";
 import { Label } from "@/components/ui/Label";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
@@ -42,6 +42,12 @@ export default function WorkPage() {
   return (
     <>
       <JsonLd data={workSchema()} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Work", path: "/work" },
+        ])}
+      />
 
       <PageHeader
         eyebrow="Selected Work"
@@ -50,7 +56,7 @@ export default function WorkPage() {
         aside={
           <div className="flex flex-col gap-3">
             <Label>Scope</Label>
-            <p className="max-w-[28ch] text-meta text-fg/70">
+            <p className="max-w-[28ch] text-meta text-fg/80">
               Three modern Next.js builds and one complete production WordPress website.
             </p>
           </div>
@@ -71,7 +77,7 @@ export default function WorkPage() {
         </div>
 
         <Reveal className="mt-20 border-t border-line/12 pt-8">
-          <p className="max-w-[62ch] text-body text-fg/65">
+          <p className="max-w-[62ch] text-body text-fg/80">
             {/* Honest note: no fictional projects are added to pad this list. */}
             This page lists confirmed work only. Additional projects are added as they are
             cleared for publication rather than to reach a particular count.

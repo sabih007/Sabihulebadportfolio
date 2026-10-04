@@ -19,7 +19,7 @@ export function Label({ children, className, rule = false }: LabelProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-3 font-accent text-label font-normal tracking-[0.18em] uppercase text-fg/60",
+        "inline-flex items-center gap-3 font-accent text-label font-medium tracking-[0.18em] uppercase text-fg/75",
         className,
       )}
     >

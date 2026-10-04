@@ -84,6 +84,7 @@ export const navigation = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Work", href: "/work" },
+  { label: "Reviews", href: "/reviews" },
   { label: "Experience", href: "/#experience" },
   { label: "Services", href: "/services" },
   { label: "Contact", href: "/contact" },
@@ -93,8 +94,11 @@ export const footerNavigation = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Work", href: "/work" },
+  { label: "Reviews", href: "/reviews" },
   { label: "Services", href: "/services" },
   { label: "Contact", href: "/contact" },
+  /** For clients, who are sent the link directly — crawlable all the same. */
+  { label: "Leave Feedback", href: "/feedback" },
 ] as const;
 
 /**

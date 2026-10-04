@@ -69,7 +69,7 @@ export function PageHeader({
           <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
             {lead ? (
               <Reveal delay={0.12}>
-                <p className="max-w-[52ch] text-lead text-fg/75 text-pretty-safe">{lead}</p>
+                <p className="max-w-[52ch] text-lead text-fg/85 text-pretty-safe">{lead}</p>
               </Reveal>
             ) : (
               <span />

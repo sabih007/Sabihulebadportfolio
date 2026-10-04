@@ -35,7 +35,7 @@ export function UpworkTrust() {
             >
               Eight years of client work, documented publicly.
             </h2>
-            <p className="mt-5 max-w-[48ch] text-body text-ice/75">
+            <p className="mt-5 max-w-[48ch] text-body text-ice/85">
               Every rating and review on this site comes from Sabih&rsquo;s public Upwork
               profile. The profile is linked below so you can read it in full, in context,
               rather than taking a portfolio&rsquo;s word for it.
@@ -58,7 +58,7 @@ export function UpworkTrust() {
                 className="flex flex-col-reverse border-t border-line/18 pt-5 sm:pr-6"
               >
                 {/* Reversed visually so the figure leads; DOM order stays dt → dd. */}
-                <dt className="mt-3 font-accent text-meta text-cyan/85">{stat.label}</dt>
+                <dt className="mt-3 font-accent text-meta text-cyan/95">{stat.label}</dt>
                 <dd className="text-[1.875rem] leading-none font-bold tracking-[-0.03em] text-ice sm:text-[2.25rem]">
                   {stat.value}
                 </dd>
