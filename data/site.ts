@@ -42,8 +42,27 @@ export const links = {
   linkedin: "https://www.linkedin.com/in/sabihulebadkhan007",
   /** TODO: no verified GitHub URL has been supplied. Add it here to surface the link site-wide. */
   github: null as string | null,
-  /** TODO: no verified public email address has been supplied. Add it here (plain address, no mailto:) to surface the link site-wide. */
-  email: null as string | null,
+  /**
+   * Public inbox. Also the default destination for contact-form enquiries —
+   * see CONTACT_TO_EMAIL in .env.example, which falls back to this value.
+   */
+  email: "info@sabihulebad.com" as string | null,
+} as const;
+
+/**
+ * Direct contact details. `display` is what a human reads; `href` is the
+ * dial/compose target, so the number keeps its spacing on screen while `tel:`
+ * stays strictly digits.
+ */
+export const contact = {
+  email: {
+    display: "info@sabihulebad.com",
+    href: "mailto:info@sabihulebad.com",
+  },
+  phone: {
+    display: "+92 325 3596641",
+    href: "tel:+923253596641",
+  },
 } as const;
 
 /** Verified Upwork profile status. Do not extend beyond what the profile shows. */

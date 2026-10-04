@@ -43,3 +43,6 @@ next-env.d.ts
 
 # typescript incremental build info
 tsconfig.tsbuildinfo
+
+# licensed font source packages (extracted woff2 lives in app/fonts/)
+*.zip

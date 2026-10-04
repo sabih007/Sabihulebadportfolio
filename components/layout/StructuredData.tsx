@@ -1,4 +1,4 @@
-import { SITE_URL, links, site } from "@/data/site";
+import { SITE_URL, contact, links, site } from "@/data/site";
 
 type JsonLdProps = {
   data: Record<string, unknown> | Record<string, unknown>[];
@@ -27,6 +27,15 @@ export function siteSchema() {
     jobTitle: site.role,
     description: site.shortBio,
     url: SITE_URL,
+    email: contact.email.display,
+    telephone: contact.phone.href.replace("tel:", ""),
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "Business enquiries",
+      email: contact.email.display,
+      telephone: contact.phone.href.replace("tel:", ""),
+      availableLanguage: ["English"],
+    },
     sameAs,
     knowsAbout: [
       "Next.js",

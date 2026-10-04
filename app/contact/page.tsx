@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/Label";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { TextLink } from "@/components/ui/TextLink";
-import { credentials, links, site, socialLinks } from "@/data/site";
+import { contact, credentials, site, socialLinks } from "@/data/site";
 import { pageMetadata } from "@/lib/utils/metadata";
 
 export const metadata: Metadata = pageMetadata({
@@ -16,6 +16,38 @@ export const metadata: Metadata = pageMetadata({
     "Start a project with Sabih Ul Ebad — Full-Stack Developer with 8+ years of experience. Tell me what you're building and I'll come back with questions and next steps.",
   path: "/contact",
 });
+
+function MailIcon() {
+  return (
+    <span
+      aria-hidden
+      className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-blue/10 text-blue-solid"
+    >
+      <svg viewBox="0 0 20 20" fill="none" className="size-[1.05rem]">
+        <rect x="2.5" y="4.5" width="15" height="11" rx="2" stroke="currentColor" strokeWidth="1.4" />
+        <path d="m3.5 6 6.5 4.5L16.5 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  );
+}
+
+function PhoneIcon() {
+  return (
+    <span
+      aria-hidden
+      className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-blue/10 text-blue-solid"
+    >
+      <svg viewBox="0 0 20 20" fill="none" className="size-[1.05rem]">
+        <path
+          d="M6.6 3.5H4.3c-.6 0-1.1.5-1 1.1.3 3 1.6 5.8 3.7 7.9 2.1 2.1 4.9 3.4 7.9 3.7.6.1 1.1-.4 1.1-1v-2.3c0-.5-.4-1-.9-1.1l-2-.3c-.4-.1-.8.1-1 .4l-.7 1a10.6 10.6 0 0 1-4.5-4.5l1-.7c.3-.2.5-.6.4-1l-.3-2c-.1-.5-.5-.9-1.1-.9Z"
+          stroke="currentColor"
+          strokeWidth="1.4"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  );
+}
 
 const helpful = [
   "What you want the site to do, in your own words.",
@@ -54,6 +86,46 @@ export default function ContactPage() {
           </div>
 
           <aside className="lg:col-span-5 lg:pl-4">
+            <Reveal distance={14} className="mb-12">
+              <Label rule className="mb-6">
+                Direct
+              </Label>
+              <ul className="flex flex-col gap-3">
+                <li>
+                  <a
+                    href={contact.email.href}
+                    className="group flex items-center gap-3.5 rounded-card border border-line/12 bg-raised px-4 py-3.5 transition-colors duration-300 hover:border-blue/40"
+                  >
+                    <MailIcon />
+                    <span className="min-w-0">
+                      <span className="block font-accent text-label uppercase tracking-[0.16em] text-fg/65">
+                        Email
+                      </span>
+                      <span className="mt-1 block truncate text-[0.9375rem] font-medium text-navy transition-colors duration-300 group-hover:text-blue">
+                        {contact.email.display}
+                      </span>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={contact.phone.href}
+                    className="group flex items-center gap-3.5 rounded-card border border-line/12 bg-raised px-4 py-3.5 transition-colors duration-300 hover:border-blue/40"
+                  >
+                    <PhoneIcon />
+                    <span className="min-w-0">
+                      <span className="block font-accent text-label uppercase tracking-[0.16em] text-fg/65">
+                        Phone
+                      </span>
+                      <span className="mt-1 block text-[0.9375rem] font-medium text-navy transition-colors duration-300 group-hover:text-blue">
+                        {contact.phone.display}
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </Reveal>
+
             <Reveal distance={14}>
               <Label rule className="mb-6">
                 What helps
@@ -84,15 +156,9 @@ export default function ContactPage() {
                   </li>
                 ))}
               </ul>
-              {/* TODO: no verified public email address or GitHub URL has been
-                  supplied. Add them in data/site.ts and they appear here, in the
-                  footer and in the final CTA automatically. */}
-              {!links.email ? (
-                <p className="mt-5 max-w-[34ch] font-accent text-meta text-fg/65">
-                  Direct email is not published yet — the form above and the profiles listed
-                  here all reach me.
-                </p>
-              ) : null}
+              {/* TODO: no verified GitHub URL has been supplied. Add it in
+                  data/site.ts and it appears here, in the footer and in the
+                  final CTA automatically. */}
             </Reveal>
 
             <Reveal delay={0.14} className="mt-12">

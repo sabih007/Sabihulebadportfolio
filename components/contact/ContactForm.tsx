@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { TextLink } from "@/components/ui/TextLink";
 import { budgetRanges, projectTypes } from "@/data/services";
-import { links } from "@/data/site";
+import { contact, links } from "@/data/site";
 import { contactSchema } from "@/lib/contact/schema";
 import type { ContactFieldErrors } from "@/lib/contact/schema";
 import { cn } from "@/lib/utils/cn";
@@ -266,8 +266,11 @@ export function ContactForm() {
           >
             <p className="text-meta text-navy">{message}</p>
             <p className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-1 text-meta text-fg/70">
-              <TextLink href={links.linkedin} external muted>
-                LinkedIn
+              <TextLink href={contact.email.href} arrow={false} muted>
+                {contact.email.display}
+              </TextLink>
+              <TextLink href={contact.phone.href} arrow={false} muted>
+                {contact.phone.display}
               </TextLink>
               <TextLink href={links.upwork} external muted>
                 Upwork

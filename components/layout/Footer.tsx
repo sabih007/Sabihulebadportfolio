@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { Logo } from "@/components/brand/Logo";
-import { footerNavigation, site, socialLinks } from "@/data/site";
+import { contact, footerNavigation, site, socialLinks } from "@/data/site";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -25,6 +25,25 @@ export function Footer() {
               <Logo tone="dark" size={40} responsive={false} />
             </Link>
             <p className="mt-5 text-body text-ice/70">{site.footerLine}</p>
+
+            <ul className="mt-6 flex flex-col gap-2">
+              <li>
+                <a
+                  href={contact.email.href}
+                  className="text-[0.9375rem] font-medium text-ice transition-colors duration-300 hover:text-cyan"
+                >
+                  {contact.email.display}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={contact.phone.href}
+                  className="text-[0.9375rem] font-medium text-ice transition-colors duration-300 hover:text-cyan"
+                >
+                  {contact.phone.display}
+                </a>
+              </li>
+            </ul>
           </div>
 
           <div className="grid grid-cols-2 gap-10 sm:gap-16 lg:gap-24">
