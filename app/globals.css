@@ -1,0 +1,392 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/*  Brand palette                                                      */
+/*                                                                     */
+/*  #293681 Deep Navy  — primary dark brand colour, dark sections,     */
+/*                       strong typography, high-contrast surfaces     */
+/*  #4274D9 Royal Blue — primary interactive accent: CTAs, links,      */
+/*                       active states, key highlights                 */
+/*  #95CCDD Soft Cyan  — secondary accent, subtle gradients, graphical */
+/*                       detail, hover moments                         */
+/*  #D0E7E6 Ice        — light surfaces, cards, section backgrounds    */
+/*                                                                     */
+/*  Two neutrals are derived from the palette (permitted by the spec): */
+/*  `ink` for body text on light, `paper` for large light grounds.     */
+/*  `blue-solid` is Royal Blue nudged toward navy so white text on a   */
+/*  filled button clears 4.5:1 (it measures 5.64:1; #4274D9 is 4.44:1).*/
+/* ------------------------------------------------------------------ */
+
+@theme {
+  --color-navy: #293681;
+  --color-blue: #4274d9;
+  --color-cyan: #95ccdd;
+  --color-ice: #d0e7e6;
+
+  --color-ink: #141b3d;
+  --color-paper: #f7fafb;
+  --color-blue-solid: #3762c6;
+
+  /* Tone-driven semantics. Declared here so Tailwind emits the
+     `bg-surface` / `text-fg` / `border-line` / `text-accent` utilities, and
+     seeded with the light values. Each `data-tone` block below redefines
+     them, and descendants inherit — so no component hard-codes a light or
+     dark colour.
+
+     These must be real values, not `var(--tone-*)` indirections: a custom
+     property is substituted where it is *declared*, so aliasing on :root
+     would freeze them to whatever :root sees and never follow the tone. */
+  --color-surface: #f7fafb;
+  --color-raised: #ffffff;
+  --color-fg: #141b3d;
+  --color-line: #293681;
+  --color-accent: #3762c6;
+
+  --font-sans: var(--font-matimo), ui-sans-serif, system-ui, "Segoe UI", Arial, sans-serif;
+  --font-accent: var(--font-neral), var(--font-matimo), ui-sans-serif, system-ui, sans-serif;
+
+  /* Fluid editorial type scale.
+     `--text-display` is capped so the longest hero line ("THAT DELIVER
+     RESULTS.", 21 characters) still fits on one line inside the shell at
+     every width. `--text-headline` is capped for the 8-of-12 column that
+     section headings occupy ("building for the web."). Re-measure before
+     raising either. */
+  --text-display: clamp(1.5rem, 7.5vw, 7rem);
+  --text-display--line-height: 0.9;
+  --text-display--letter-spacing: -0.038em;
+
+  --text-headline: clamp(1.75rem, 4.6vw, 4rem);
+  --text-headline--line-height: 0.95;
+  --text-headline--letter-spacing: -0.03em;
+
+  --text-title: clamp(1.625rem, 3.4vw, 2.75rem);
+  --text-title--line-height: 1.04;
+  --text-title--letter-spacing: -0.022em;
+
+  --text-subtitle: clamp(1.25rem, 1.9vw, 1.625rem);
+  --text-subtitle--line-height: 1.2;
+  --text-subtitle--letter-spacing: -0.015em;
+
+  --text-lead: clamp(1.0625rem, 1.15vw, 1.3125rem);
+  --text-lead--line-height: 1.6;
+  --text-lead--letter-spacing: -0.008em;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.7;
+
+  --text-meta: 0.8125rem;
+  --text-meta--line-height: 1.55;
+
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.1;
+  --text-label--letter-spacing: 0.18em;
+
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --radius-card: 1.125rem;
+  --radius-panel: 1.5rem;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Tones                                                              */
+/*                                                                     */
+/*  Minimum text opacities that still clear WCAG AA against each       */
+/*  ground (measured, not estimated):                                  */
+/*    light / ice : fg at 60% → 4.67:1. Use /70 for secondary copy.     */
+/*    dark        : fg at 65% → 4.4:1.  Use /75 for secondary copy.     */
+/* ------------------------------------------------------------------ */
+
+[data-tone="light"] {
+  --color-surface: #f7fafb;
+  --color-raised: #ffffff;
+  --color-fg: #141b3d;
+  --color-line: #293681;
+  --color-accent: #3762c6;
+  --grad-from: #293681;
+  --grad-to: #4274d9;
+}
+
+[data-tone="ice"] {
+  --color-surface: #dfefee;
+  --color-raised: #ffffff;
+  --color-fg: #141b3d;
+  --color-line: #293681;
+  --color-accent: #3762c6;
+  --grad-from: #293681;
+  --grad-to: #4274d9;
+}
+
+[data-tone="dark"] {
+  --color-surface: #293681;
+  --color-raised: #31409a;
+  --color-fg: #d0e7e6;
+  --color-line: #d0e7e6;
+  --color-accent: #95ccdd;
+  /* Royal blue only reaches 2.4:1 on navy, so the dark gradient runs
+     deep cyan → ice, which clears large-text contrast throughout. */
+  --grad-from: #7fc0d6;
+  --grad-to: #d0e7e6;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+
+:root {
+  color-scheme: light;
+  --shell-gutter: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  :root { --shell-gutter: 2.5rem; }
+}
+
+@media (min-width: 1280px) {
+  :root { --shell-gutter: 4rem; }
+}
+
+/* Below sm the hero headline may wrap within its masks, which buys back
+   the display weight an unbroken 21-character line would cost. */
+@media (max-width: 639px) {
+  :root {
+    --text-display: clamp(2rem, 10.5vw, 3.25rem);
+    --text-display--line-height: 0.95;
+  }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background-color: #f7fafb;
+}
+
+body {
+  color: #141b3d;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: #4274d9;
+  color: #ffffff;
+}
+
+/* Focus ring follows the tone, so it stays visible on navy and on paper. */
+:focus-visible {
+  outline: 2px solid var(--color-accent, #3762c6);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+[data-tone="dark"] :focus-visible {
+  outline-color: #d0e7e6;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Layout primitives                                                  */
+/* ------------------------------------------------------------------ */
+
+.shell {
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: var(--shell-gutter);
+}
+
+.text-balance-safe { text-wrap: balance; }
+.text-pretty-safe { text-wrap: pretty; }
+
+/* ------------------------------------------------------------------ */
+/*  Brand gradient                                                     */
+/*                                                                     */
+/*  Reserved for the logo, the single highlighted headline word, and a */
+/*  few hairline rules. Never a section background.                     */
+/* ------------------------------------------------------------------ */
+
+.gradient-text {
+  color: var(--color-accent);
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .gradient-text {
+    background-image: linear-gradient(
+      100deg,
+      var(--grad-from, #293681) 0%,
+      var(--grad-to, #4274d9) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* Keeps descenders from being clipped by the background box. */
+    padding-bottom: 0.04em;
+  }
+}
+
+.gradient-rule {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-navy) 0%,
+    var(--color-blue) 50%,
+    var(--color-cyan) 100%
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Ambient brand washes                                               */
+/*                                                                     */
+/*  Radial gradients rather than large `filter: blur()` circles. A      */
+/*  dozen blurred 500px elements each force their own compositing      */
+/*  layer and were enough to stall the renderer on a mid-range GPU;    */
+/*  these paint for free and give finer control over the falloff.      */
+/* ------------------------------------------------------------------ */
+
+.wash {
+  pointer-events: none;
+  position: absolute;
+  border-radius: 9999px;
+}
+
+.wash-blue {
+  background-image: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-blue) 26%, transparent),
+    transparent 100%
+  );
+}
+
+.wash-blue-strong {
+  background-image: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-blue) 55%, transparent),
+    transparent 100%
+  );
+}
+
+.wash-cyan {
+  background-image: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-cyan) 45%, transparent),
+    transparent 100%
+  );
+}
+
+.wash-cyan-soft {
+  background-image: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-cyan) 24%, transparent),
+    transparent 100%
+  );
+}
+
+/* Faint editorial column grid behind heroes. */
+.rule-grid {
+  background-image: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--color-line) 9%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 25% 100%;
+}
+
+/* On navy the rule is ice, which reads far stronger at the same alpha than
+   navy does on paper. Scale it back so it stays a hint, not a stripe. */
+[data-tone="dark"] .rule-grid,
+[data-tone="dark"].rule-grid {
+  background-image: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--color-line) 5%, transparent) 1px,
+    transparent 1px
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Texture — one lightweight SVG turbulence tile, dark sections only.  */
+/*  On light grounds it reads as dirt rather than paper, so it is       */
+/*  deliberately not applied there.                                     */
+/* ------------------------------------------------------------------ */
+
+.grain-dark {
+  position: relative;
+}
+
+.grain-dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Marquee — CSS only, so it costs no JavaScript                      */
+/* ------------------------------------------------------------------ */
+
+@keyframes marquee-x {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x var(--marquee-duration, 48s) linear infinite;
+  will-change: transform;
+}
+
+.marquee-shell:hover .marquee-track,
+.marquee-shell:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Line-mask headline reveal                                          */
+/*  The hidden state is declared in CSS (not inline) so the            */
+/*  reduced-motion and <noscript> overrides below can always win.      */
+/* ------------------------------------------------------------------ */
+
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.line-mask > span {
+  display: block;
+  transform: translate3d(0, 108%, 0);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reduced motion                                                     */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .grain-dark::after {
+    display: none;
+  }
+
+  .line-mask > span {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
