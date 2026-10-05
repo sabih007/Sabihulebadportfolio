@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 
 import { matimo, neral } from "@/app/fonts";
 import { Analytics } from "@/components/layout/Analytics";
@@ -10,7 +11,7 @@ import { Cursor } from "@/components/ui/Cursor";
 import { SITE_URL, site } from "@/data/site";
 
 import "./globals.css";
-import Script from 'next/script';
+
 /**
  * Search-engine ownership verification. Set whichever you need and the meta tag
  * appears; leave them unset and nothing is emitted. These are the token values
@@ -18,12 +19,18 @@ import Script from 'next/script';
  *
  *   GOOGLE_SITE_VERIFICATION  — Google Search Console
  *   BING_SITE_VERIFICATION    — Bing Webmaster Tools
+ *   MONETAG_VERIFICATION      — Monetag publisher site verification
  */
 const verification = {
   google: process.env.GOOGLE_SITE_VERIFICATION,
-  other: process.env.BING_SITE_VERIFICATION
-    ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
-    : undefined,
+  other: {
+    ...(process.env.BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
+      : {}),
+    ...(process.env.MONETAG_VERIFICATION
+      ? { monetag: process.env.MONETAG_VERIFICATION }
+      : {}),
+  },
 };
 
 export const metadata: Metadata = {
@@ -107,14 +114,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
 
         <Analytics />
-        
-// inside <body>, after {children}
-<Script id="monetag-vignette"
-  src="https://n6wxm.com/vignette.min.js"
-  data-zone="11958145"
-  strategy="afterInteractive"/>
 
-/**
+        {/* Monetag vignette ad zone */}
+        <Script
+          id="monetag-vignette"
+          src="https://n6wxm.com/vignette.min.js"
+          data-zone="11958145"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
