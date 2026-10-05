@@ -10,8 +10,8 @@ import { Cursor } from "@/components/ui/Cursor";
 import { SITE_URL, site } from "@/data/site";
 
 import "./globals.css";
+import Script from 'next/script';
 
-/**
  * Search-engine ownership verification. Set whichever you need and the meta tag
  * appears; leave them unset and nothing is emitted. These are the token values
  * from the "HTML tag" verification method, not the whole tag.
@@ -107,6 +107,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
 
         <Analytics />
+        
+// inside <body>, after {children}
+<Script
+  id="monetag-vignette"
+  src="https://n6wxm.com/vignette.min.js"
+  data-zone="11958145"
+  strategy="afterInteractive"
+/>
+
+/**
       </body>
     </html>
   );
