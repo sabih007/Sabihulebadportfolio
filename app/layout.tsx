@@ -109,12 +109,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Analytics />
         
 // inside <body>, after {children}
-<Script
-  id="monetag-vignette"
+<Script id="monetag-vignette"
   src="https://n6wxm.com/vignette.min.js"
   data-zone="11958145"
-  strategy="afterInteractive"
-/>
+  strategy="afterInteractive"/>
 
 /**
       </body>
