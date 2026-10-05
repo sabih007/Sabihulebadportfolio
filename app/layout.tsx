@@ -11,7 +11,7 @@ import { SITE_URL, site } from "@/data/site";
 
 import "./globals.css";
 import Script from 'next/script';
-
+/**
  * Search-engine ownership verification. Set whichever you need and the meta tag
  * appears; leave them unset and nothing is emitted. These are the token values
  * from the "HTML tag" verification method, not the whole tag.
