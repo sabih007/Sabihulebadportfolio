@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
 
   // Keeps the client bundle lean by tree-shaking the animation libraries.
   experimental: {
-    optimizePackageImports: ["motion", "gsap"],
+    optimizePackageImports: ["motion", "gsap", "lucide-react"],
   },
 
   poweredByHeader: false,

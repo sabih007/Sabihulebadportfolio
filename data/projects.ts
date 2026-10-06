@@ -47,6 +47,11 @@ export type Project = {
   outcome: string | null;
   /** Path under /public — e.g. "/images/projects/buysellox.webp". */
   coverImage?: string;
+  /**
+   * Tall capture of the same page, used by <BrowserMockup> to pan down the
+   * site on hover. Written beside the cover by `npm run shots`.
+   */
+  coverFull?: string;
   gallery?: string[];
   featured: boolean;
   /**
@@ -69,6 +74,7 @@ export const projects: Project[] = [
     services: ["Web Design", "UI/UX", "Full-Stack Development", "Responsive Implementation"],
     website: "https://buysellox.com/",
     coverImage: "/images/projects/buysellox.webp",
+    coverFull: "/images/projects/buysellox-full.webp",
     description:
       "A marketplace web platform built end to end in Next.js — interface, structure and application layer.",
     overview:
@@ -98,6 +104,7 @@ export const projects: Project[] = [
     services: ["Web Design", "UI/UX", "Full-Stack Development", "Design-to-Code Implementation"],
     website: "https://www.nexivostudio.io/",
     coverImage: "/images/projects/nexivo-studio.webp",
+    coverFull: "/images/projects/nexivo-studio-full.webp",
     description:
       "A brand and digital-experience build for a studio whose website has to prove the work it sells.",
     overview:
@@ -127,6 +134,7 @@ export const projects: Project[] = [
     services: ["Web Design", "UI/UX", "eCommerce Development", "Full-Stack Development"],
     website: "https://chinexmall.com/",
     coverImage: "/images/projects/chinex-mall.webp",
+    coverFull: "/images/projects/chinex-mall-full.webp",
     description:
       "An eCommerce experience built from scratch in Next.js, designed around how people actually shop.",
     overview:
@@ -156,6 +164,7 @@ export const projects: Project[] = [
     services: ["Web Design", "UI/UX", "WordPress Development", "Responsive Implementation"],
     website: "https://caldentalusa.com/",
     coverImage: "/images/projects/cal-dental-usa.webp",
+    coverFull: "/images/projects/cal-dental-usa-full.webp",
     description:
       "A complete production WordPress website for a dental practice — built from scratch, not assembled from a theme.",
     overview:

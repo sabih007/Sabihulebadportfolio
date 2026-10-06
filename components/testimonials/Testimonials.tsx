@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/Badge";
 import { Label } from "@/components/ui/Label";
 import { Rating } from "@/components/ui/Rating";
+import { Icon } from "@/components/ui/IconBox";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -192,9 +193,17 @@ function ReviewCard({
     <Reveal
       as="li"
       delay={delay}
-      className="group flex h-full flex-col justify-between gap-7 rounded-panel border border-line/14 bg-raised/50 p-7 transition-colors duration-500 hover:border-cyan/45 sm:p-8"
+      className="group relative flex h-full flex-col justify-between gap-7 overflow-hidden rounded-panel border border-line/14 bg-raised/50 p-7 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-cyan/45 hover:shadow-[0_26px_55px_-38px_rgba(0,0,0,0.65)] sm:p-8 lg:hover:-translate-y-1"
     >
-      <figure className="flex h-full flex-col">
+      {/* Decoration only, which is why it sits far below the opacity floor the
+          palette sets for type that carries meaning. */}
+      <Icon
+        name="quote"
+        size={76}
+        className="pointer-events-none absolute -top-3 -right-2 text-cyan/12 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1 group-hover:scale-105"
+      />
+
+      <figure className="relative flex h-full flex-col">
         <Rating value={testimonial.rating} />
 
         <blockquote className="mt-5 flex-1">

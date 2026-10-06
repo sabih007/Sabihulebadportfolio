@@ -14,7 +14,20 @@ import { cn } from "@/lib/utils/cn";
 type Status = "idle" | "submitting" | "success" | "error";
 
 const fieldBase =
-  "w-full rounded-card border bg-white px-4 py-3.5 text-[0.9375rem] text-navy placeholder:text-navy/55 transition-colors duration-300 focus:outline-none focus-visible:border-blue";
+  "w-full border bg-white px-5 py-3.5 text-[0.9375rem] text-navy placeholder:text-navy/55 transition-colors duration-300 focus:outline-none focus-visible:border-blue";
+
+/**
+ * Corner radius is kept out of `fieldBase` and applied per control, because
+ * `cn` is a plain joiner with no tailwind-merge: two rounded-* classes on one
+ * element would both be emitted and the winner decided by stylesheet order.
+ *
+ * Single-line controls take the same full pill as the buttons they sit above,
+ * so the form reads as one shape language. A textarea does not — a pill around
+ * six lines of text bows the sides away from the copy — so it takes the
+ * largest radius that still looks like a panel.
+ */
+const fieldPill = "rounded-full";
+const fieldBlock = "rounded-[1.75rem]";
 
 /**
  * Inquiry form.
@@ -150,7 +163,7 @@ export function ContactForm() {
             placeholder="Your name"
             aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? "name-error" : undefined}
-            className={cn(fieldBase, errors.name ? "border-blue/70" : "border-navy/15")}
+            className={cn(fieldBase, fieldPill, errors.name ? "border-blue/70" : "border-navy/15")}
           />
         </Field>
 
@@ -163,7 +176,7 @@ export function ContactForm() {
             placeholder="you@company.com"
             aria-invalid={Boolean(errors.email)}
             aria-describedby={errors.email ? "email-error" : undefined}
-            className={cn(fieldBase, errors.email ? "border-blue/70" : "border-navy/15")}
+            className={cn(fieldBase, fieldPill, errors.email ? "border-blue/70" : "border-navy/15")}
           />
         </Field>
 
@@ -176,7 +189,7 @@ export function ContactForm() {
             placeholder="Optional"
             aria-invalid={Boolean(errors.company)}
             aria-describedby={errors.company ? "company-error" : undefined}
-            className={cn(fieldBase, errors.company ? "border-blue/70" : "border-navy/15")}
+            className={cn(fieldBase, fieldPill, errors.company ? "border-blue/70" : "border-navy/15")}
           />
         </Field>
 
@@ -187,8 +200,7 @@ export function ContactForm() {
             defaultValue=""
             aria-invalid={Boolean(errors.projectType)}
             aria-describedby={errors.projectType ? "projectType-error" : undefined}
-            className={cn(
-              fieldBase,
+            className={cn(fieldBase, fieldPill,
               "appearance-none bg-[length:0.75rem] bg-[right_1rem_center] bg-no-repeat pr-10",
               errors.projectType ? "border-blue/70" : "border-navy/15",
             )}
@@ -214,8 +226,7 @@ export function ContactForm() {
           id="budget"
           name="budget"
           defaultValue=""
-          className={cn(
-            fieldBase,
+          className={cn(fieldBase, fieldPill,
             "appearance-none bg-[length:0.75rem] bg-[right_1rem_center] bg-no-repeat pr-10 border-navy/15",
           )}
           style={{
@@ -240,8 +251,7 @@ export function ContactForm() {
           placeholder="What are you building, who is it for, and what does success look like?"
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? "message-error" : undefined}
-          className={cn(
-            fieldBase,
+          className={cn(fieldBase, fieldBlock,
             "resize-y",
             errors.message ? "border-blue/70" : "border-navy/15",
           )}

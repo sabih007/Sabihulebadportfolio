@@ -7,6 +7,12 @@ import { cn } from "@/lib/utils/cn";
 type SectionHeadingProps = {
   /** Eyebrow label. */
   eyebrow?: string;
+  /**
+   * Editorial section number, rendered as "01 / EYEBROW". Pass it only where
+   * a page genuinely reads as a numbered sequence — numbering two sections out
+   * of six describes nothing and just adds noise.
+   */
+  index?: string;
   /** Each entry is one rendered line of the heading. */
   lines: ReactNode[];
   /** Supporting paragraph. */
@@ -26,6 +32,7 @@ type SectionHeadingProps = {
  */
 export function SectionHeading({
   eyebrow,
+  index,
   lines,
   lead,
   aside,
@@ -49,6 +56,14 @@ export function SectionHeading({
         {eyebrow ? (
           <Reveal distance={12}>
             <Label rule className="mb-6 sm:mb-8">
+              {index ? (
+                <>
+                  <span className="tabular-nums text-accent">{index}</span>
+                  <span aria-hidden className="text-fg/35">
+                    /
+                  </span>
+                </>
+              ) : null}
               {eyebrow}
             </Label>
           </Reveal>

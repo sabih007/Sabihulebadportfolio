@@ -1,3 +1,4 @@
+import { IconBox } from "@/components/ui/IconBox";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -19,6 +20,7 @@ const treatments = {
     item: "text-fg/85",
     dot: "bg-blue/45",
     rule: "bg-blue/40",
+    iconBox: "",
   },
   cyan: {
     card: "border-cyan/60 bg-cyan/35 hover:border-cyan",
@@ -28,6 +30,7 @@ const treatments = {
     item: "text-navy/90",
     dot: "bg-navy/40",
     rule: "bg-navy/35",
+    iconBox: "border-navy/20 bg-white/55 text-navy group-hover:border-navy/40 group-hover:bg-white/80 group-hover:text-navy",
   },
   navy: {
     card: "border-navy bg-navy hover:border-cyan/60",
@@ -37,6 +40,7 @@ const treatments = {
     item: "text-ice/90",
     dot: "bg-cyan/70",
     rule: "bg-cyan/60",
+    iconBox: "border-cyan/25 bg-cyan/10 text-cyan group-hover:border-cyan/55 group-hover:bg-cyan/18 group-hover:text-ice",
   },
 } as const;
 
@@ -50,6 +54,7 @@ export function Services({ withLink = true, id = "services" }: ServicesProps) {
   return (
     <Section tone="light" id={id} aria-labelledby={`${id}-heading`}>
       <SectionHeading
+        index="02"
         id={`${id}-heading`}
         eyebrow="Services"
         lines={["What I can help", "you build."]}
@@ -88,18 +93,25 @@ export function Services({ withLink = true, id = "services" }: ServicesProps) {
               ) : null}
 
               <div className="relative flex items-start justify-between gap-4">
-                <span
-                  className={cn("font-accent text-label uppercase tracking-[0.2em]", tone.index)}
-                >
-                  {service.index}
-                </span>
-                <span
-                  aria-hidden
-                  className={cn(
-                    "mt-1.5 h-px w-10 origin-right scale-x-0 rounded-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100",
-                    tone.rule,
-                  )}
-                />
+                <IconBox name={service.icon} size="lg" className={tone.iconBox} />
+
+                <div className="flex items-center gap-3 pt-2">
+                  <span
+                    className={cn(
+                      "font-accent text-label uppercase tracking-[0.2em]",
+                      tone.index,
+                    )}
+                  >
+                    {service.index}
+                  </span>
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "h-px w-10 origin-right scale-x-0 rounded-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100",
+                      tone.rule,
+                    )}
+                  />
+                </div>
               </div>
 
               <div className="relative">

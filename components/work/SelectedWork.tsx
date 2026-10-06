@@ -15,6 +15,7 @@ export function SelectedWork() {
   return (
     <Section id="work" tone="light" divider aria-labelledby="work-heading">
       <SectionHeading
+        index="01"
         id="work-heading"
         eyebrow="Selected Work"
         lines={["Selected work", "built with purpose."]}

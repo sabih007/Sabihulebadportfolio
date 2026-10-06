@@ -74,7 +74,7 @@ export function AdminLogin() {
           onChange={(event) => setPassword(event.target.value)}
           aria-invalid={Boolean(error)}
           aria-describedby={error ? "password-error" : undefined}
-          className="w-full rounded-card border border-navy/15 bg-white px-4 py-3.5 text-[0.9375rem] text-navy transition-colors duration-300 focus:outline-none focus-visible:border-blue"
+          className="w-full rounded-full border border-navy/15 bg-white px-5 py-3.5 text-[0.9375rem] text-navy transition-colors duration-300 focus:outline-none focus-visible:border-blue"
         />
         {error ? (
           <p id="password-error" role="alert" className="text-[0.8125rem] font-medium text-blue-solid">

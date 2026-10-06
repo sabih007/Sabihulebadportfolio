@@ -1,6 +1,10 @@
+import type { IconName } from "@/lib/icons";
+
 export type Service = {
   index: string;
   title: string;
+  /** Glyph for the card, named from the shared icon vocabulary. */
+  icon: IconName;
   body: string;
   /** Capability lines — deliberately short, never a pill wall. */
   includes: string[];
@@ -12,6 +16,7 @@ export const services: Service[] = [
   {
     index: "01",
     title: "Web Development",
+    icon: "development",
     body: "High-performance websites and applications built with modern technologies.",
     includes: ["Next.js & React builds", "Custom web applications", "Performance work"],
     treatment: "surface",
@@ -19,6 +24,7 @@ export const services: Service[] = [
   {
     index: "02",
     title: "Web Design & UI/UX",
+    icon: "design",
     body: "Thoughtful digital interfaces balancing aesthetics, usability and business requirements.",
     includes: ["Interface design", "Responsive systems", "Design-to-code implementation"],
     treatment: "cyan",
@@ -26,6 +32,7 @@ export const services: Service[] = [
   {
     index: "03",
     title: "eCommerce",
+    icon: "ecommerce",
     body: "Custom shopping experiences using Shopify, WooCommerce or custom solutions.",
     includes: ["Shopify & WooCommerce", "Custom storefronts", "Checkout and catalogue UX"],
     treatment: "surface",
@@ -33,6 +40,7 @@ export const services: Service[] = [
   {
     index: "04",
     title: "WordPress & Custom Solutions",
+    icon: "cms",
     body: "Custom WordPress development, integrations, functionality and performance improvements.",
     includes: ["Custom themes", "Functionality & integrations", "Maintainable editing"],
     treatment: "navy",

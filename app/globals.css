@@ -167,6 +167,14 @@
 html {
   -webkit-text-size-adjust: 100%;
   background-color: #f7fafb;
+  /* The ambient washes and the marquee track are deliberately wider than the
+     viewport. `body` already hid the resulting horizontal scroll, but <html>
+     did not, so the document itself stayed 86px wider than the window.
+
+     `clip` rather than `hidden`: hidden makes the element a scroll container,
+     which breaks `position: sticky` on descendants and gives Lenis a second
+     scroller to fight with. `clip` just crops. */
+  overflow-x: clip;
 }
 
 body {

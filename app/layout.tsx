@@ -4,6 +4,8 @@ import Script from "next/script";
 import { matimo, neral } from "@/app/fonts";
 import { Analytics } from "@/components/layout/Analytics";
 import { Footer } from "@/components/layout/Footer";
+import { MotionProvider } from "@/components/layout/MotionProvider";
+import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { JsonLd, siteSchema } from "@/components/layout/StructuredData";
 import { Header } from "@/components/navigation/Header";
@@ -105,13 +107,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-dvh bg-paper text-ink antialiased">
         <JsonLd data={siteSchema()} />
         <SmoothScroll />
+        <ScrollProgress />
         <Cursor />
 
-        <Header />
-        <main id="main" className="relative">
-          {children}
-        </main>
-        <Footer />
+        <MotionProvider>
+          <Header />
+          <main id="main" className="relative">
+            {children}
+          </main>
+          <Footer />
+        </MotionProvider>
 
         <Analytics />
 

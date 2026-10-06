@@ -8,6 +8,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { DisplayText } from "@/components/ui/DisplayText";
 import { Label } from "@/components/ui/Label";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { PointerGlow } from "@/components/ui/PointerGlow";
 import { heroTrust, site } from "@/data/site";
 import { editorialEase } from "@/lib/animations/motion";
 
@@ -29,8 +30,12 @@ export function Hero() {
   const [headlineDone, setHeadlineDone] = useState(false);
   const revealed = headlineDone || reduceMotion;
 
+  // `initial` is unconditional so the server and the browser render the same
+  // markup; only `animate` waits on the headline. MotionConfig (see
+  // components/layout/MotionProvider) applies the reduced-motion preference
+  // when the animation runs, which is the part the server cannot predict.
   const supporting = {
-    initial: reduceMotion ? undefined : { opacity: 0, y: 18 },
+    initial: { opacity: 0, y: 18 },
     animate: revealed ? { opacity: 1, y: 0 } : undefined,
   };
 
@@ -53,11 +58,12 @@ export function Hero() {
         aria-hidden
         className="wash wash-blue -top-72 left-[-10%] size-[38rem]"
       />
+      <PointerGlow className="wash-cyan-soft size-[34rem]" />
 
       <div className="shell relative">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: editorialEase }}
           >
@@ -65,16 +71,14 @@ export function Hero() {
           </motion.div>
 
           <motion.p
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.08, ease: editorialEase }}
             className="inline-flex items-center gap-2.5 rounded-full border border-line/14 bg-white/70 px-4 py-2 font-accent text-meta text-fg/85 backdrop-blur-sm"
           >
             <span aria-hidden className="relative flex size-1.5">
               <span className="absolute inset-0 rounded-full bg-blue" />
-              {reduceMotion ? null : (
-                <span className="absolute inset-0 animate-ping rounded-full bg-blue/60" />
-              )}
+              <span className="absolute inset-0 animate-ping rounded-full bg-blue/60 motion-reduce:hidden" />
             </span>
             {site.availability}
           </motion.p>

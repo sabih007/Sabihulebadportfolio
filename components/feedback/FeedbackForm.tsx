@@ -14,7 +14,20 @@ import { cn } from "@/lib/utils/cn";
 type Status = "idle" | "submitting" | "success" | "error";
 
 const fieldBase =
-  "w-full rounded-card border bg-white px-4 py-3.5 text-[0.9375rem] text-navy placeholder:text-navy/55 transition-colors duration-300 focus:outline-none focus-visible:border-blue";
+  "w-full border bg-white px-5 py-3.5 text-[0.9375rem] text-navy placeholder:text-navy/55 transition-colors duration-300 focus:outline-none focus-visible:border-blue";
+
+/**
+ * Corner radius is kept out of `fieldBase` and applied per control, because
+ * `cn` is a plain joiner with no tailwind-merge: two rounded-* classes on one
+ * element would both be emitted and the winner decided by stylesheet order.
+ *
+ * Single-line controls take the same full pill as the buttons they sit above,
+ * so the form reads as one shape language. A textarea does not — a pill around
+ * six lines of text bows the sides away from the copy — so it takes the
+ * largest radius that still looks like a panel.
+ */
+const fieldPill = "rounded-full";
+const fieldBlock = "rounded-[1.75rem]";
 
 const selectChevron =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%23293681' stroke-opacity='0.6' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\")";
@@ -170,7 +183,7 @@ export function FeedbackForm() {
             placeholder="Your name"
             aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? "name-error" : undefined}
-            className={cn(fieldBase, errors.name ? "border-blue/70" : "border-navy/15")}
+            className={cn(fieldBase, fieldPill, errors.name ? "border-blue/70" : "border-navy/15")}
           />
         </Field>
 
@@ -189,7 +202,7 @@ export function FeedbackForm() {
             placeholder="you@company.com"
             aria-invalid={Boolean(errors.email)}
             aria-describedby={cn(errors.email ? "email-error" : "", "email-hint")}
-            className={cn(fieldBase, errors.email ? "border-blue/70" : "border-navy/15")}
+            className={cn(fieldBase, fieldPill, errors.email ? "border-blue/70" : "border-navy/15")}
           />
         </Field>
 
@@ -201,7 +214,7 @@ export function FeedbackForm() {
             placeholder="e.g. Founder"
             aria-invalid={Boolean(errors.role)}
             aria-describedby={errors.role ? "role-error" : undefined}
-            className={cn(fieldBase, errors.role ? "border-blue/70" : "border-navy/15")}
+            className={cn(fieldBase, fieldPill, errors.role ? "border-blue/70" : "border-navy/15")}
           />
         </Field>
 
@@ -214,7 +227,7 @@ export function FeedbackForm() {
             placeholder="Optional"
             aria-invalid={Boolean(errors.company)}
             aria-describedby={errors.company ? "company-error" : undefined}
-            className={cn(fieldBase, errors.company ? "border-blue/70" : "border-navy/15")}
+            className={cn(fieldBase, fieldPill, errors.company ? "border-blue/70" : "border-navy/15")}
           />
         </Field>
 
@@ -227,7 +240,7 @@ export function FeedbackForm() {
             placeholder="https://"
             aria-invalid={Boolean(errors.website)}
             aria-describedby={errors.website ? "clientWebsite-error" : undefined}
-            className={cn(fieldBase, errors.website ? "border-blue/70" : "border-navy/15")}
+            className={cn(fieldBase, fieldPill, errors.website ? "border-blue/70" : "border-navy/15")}
           />
         </Field>
 
@@ -236,8 +249,7 @@ export function FeedbackForm() {
             id="projectType"
             name="projectType"
             defaultValue=""
-            className={cn(
-              fieldBase,
+            className={cn(fieldBase, fieldPill,
               "appearance-none bg-[length:0.75rem] bg-[right_1rem_center] bg-no-repeat pr-10 border-navy/15",
             )}
             style={{ backgroundImage: selectChevron }}
@@ -267,7 +279,7 @@ export function FeedbackForm() {
           placeholder="e.g. Delivered early and did exactly what we asked"
           aria-invalid={Boolean(errors.headline)}
           aria-describedby={cn(errors.headline ? "headline-error" : "", "headline-hint")}
-          className={cn(fieldBase, errors.headline ? "border-blue/70" : "border-navy/15")}
+          className={cn(fieldBase, fieldPill, errors.headline ? "border-blue/70" : "border-navy/15")}
         />
       </Field>
 
@@ -280,7 +292,7 @@ export function FeedbackForm() {
           placeholder="What was the project, how did the work go, and what would you tell someone considering it?"
           aria-invalid={Boolean(errors.quote)}
           aria-describedby={errors.quote ? "quote-error" : undefined}
-          className={cn(fieldBase, "resize-y", errors.quote ? "border-blue/70" : "border-navy/15")}
+          className={cn(fieldBase, fieldBlock, "resize-y", errors.quote ? "border-blue/70" : "border-navy/15")}
         />
       </Field>
 

@@ -1,3 +1,4 @@
+import { IconBox } from "@/components/ui/IconBox";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -21,27 +22,34 @@ export function Philosophy() {
 
       <div className="relative">
         <SectionHeading
+          index="04"
           id="philosophy-heading"
           eyebrow="How I work"
           lines={["Good code is only", "half the job."]}
           lead="Great projects also depend on ownership, communication and attention to detail."
         />
 
-        <ul className="mt-16 grid gap-4 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="group/principles mt-16 grid gap-4 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
           {principles.map((principle, index) => (
             <Reveal
               as="li"
               key={principle.index}
               delay={index * 0.07}
-              className="group relative flex min-h-[15rem] flex-col justify-between overflow-hidden rounded-panel border border-line/14 bg-raised/60 p-7 transition-colors duration-500 hover:border-cyan/45 sm:min-h-[17rem]"
+              className="group relative flex min-h-[15rem] flex-col justify-between overflow-hidden rounded-panel border border-line/14 bg-raised/60 p-7 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-cyan/45 sm:min-h-[17rem] lg:hover:-translate-y-1 lg:group-hover/principles:opacity-55 lg:hover:opacity-100"
             >
               <div
                 aria-hidden
                 className="wash wash-cyan -right-16 -bottom-16 size-44 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
               />
-              <span className="relative font-accent text-label uppercase tracking-[0.2em] text-cyan/90">
-                {principle.index}
-              </span>
+              <div className="relative flex items-start justify-between gap-4">
+                <IconBox
+                  name={principle.icon}
+                  className="border-cyan/25 bg-cyan/10 text-cyan group-hover:border-cyan/55 group-hover:bg-cyan/18 group-hover:text-ice"
+                />
+                <span className="pt-2 font-accent text-label uppercase tracking-[0.2em] text-cyan/90">
+                  {principle.index}
+                </span>
+              </div>
               <div className="relative">
                 <h3 className="text-subtitle font-semibold text-ice">{principle.title}</h3>
                 <p className="mt-3 text-meta text-ice/85">{principle.body}</p>

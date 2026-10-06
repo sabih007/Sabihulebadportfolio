@@ -1,6 +1,7 @@
 import { ButtonLink } from "@/components/ui/Button";
 import { Label } from "@/components/ui/Label";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { PointerGlow } from "@/components/ui/PointerGlow";
 import { Reveal } from "@/components/ui/Reveal";
 import { site, socialLinks } from "@/data/site";
 
@@ -34,6 +35,9 @@ export function FinalCta() {
         aria-hidden
         className="rule-grid pointer-events-none absolute inset-x-0 bottom-0 h-2/3 [mask-image:linear-gradient(to_top,black,transparent)]"
       />
+      {/* The closing section answers the pointer, so the page's last beat is
+          the one that feels most alive. */}
+      <PointerGlow className="wash-cyan size-[30rem]" />
 
       <div className="shell relative">
         <Reveal distance={12}>
@@ -60,8 +64,17 @@ export function FinalCta() {
               to life.
             </p>
             <div className="mt-8">
-              <Magnetic>
-                <ButtonLink href="/contact" variant="contrast" arrow="ne">
+              {/* A radius, unlike every other CTA on the site: this one reaches
+                  for the pointer from across the section rather than waiting to
+                  be hovered. It is the page's last action, and the only place
+                  that extra pull is earned. */}
+              <Magnetic strength={14} radius={260}>
+                <ButtonLink
+                  href="/contact"
+                  variant="contrast"
+                  arrow="ne"
+                  className="px-8 py-4 text-[1.0625rem] sm:px-10 sm:py-5"
+                >
                   Start a Project
                 </ButtonLink>
               </Magnetic>

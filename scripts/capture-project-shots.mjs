@@ -31,6 +31,15 @@ const HEIGHT = 1000;
 const OUT_DIR = "public/images/projects";
 
 /**
+ * Tall companion capture, used by <BrowserMockup> to pan down the page on
+ * hover. Capped rather than written at the site's real height: a long
+ * marketing page runs to 8000px, and nothing past the first few screens is
+ * ever shown. Pages shorter than the cap are kept at their own height, so the
+ * pan distance is always real rather than padded.
+ */
+const FULL_MAX_HEIGHT = 2600;
+
+/**
  * puppeteer-core ships no browser of its own — it drives the Chrome already
  * installed on the machine. Set CHROME_PATH to override.
  */
@@ -314,6 +323,15 @@ async function primeLazyImages(page, maxScreens = 12) {
  * perfectly well. What the shot actually depends on is whether a page was
  * rendered at all, which is what this checks.
  */
+/** True when Chrome has replaced the site with its own error interstitial. */
+function isErrorPage(page) {
+  return page.evaluate(
+    () =>
+      document.documentElement.className.includes("neterror") ||
+      Boolean(document.querySelector("#main-frame-error")),
+  );
+}
+
 async function navigate(page, url) {
   for (let attempt = 1; ; attempt += 1) {
     if (attempt === 1) {
@@ -322,13 +340,7 @@ async function navigate(page, url) {
       await page.reload({ waitUntil: "domcontentloaded", timeout: 60000 });
     }
 
-    const errorPage = await page.evaluate(
-      () =>
-        document.documentElement.className.includes("neterror") ||
-        Boolean(document.querySelector("#main-frame-error")),
-    );
-
-    if (!errorPage) return;
+    if (!(await isErrorPage(page))) return;
 
     if (attempt >= 2) {
       throw new Error("Chrome could not load the site (network error page).");
@@ -400,6 +412,12 @@ for (const project of targets) {
           // Timed pop-ups often arrive only after the scroll pass, so sweep
           // again immediately before the shutter.
           await best(dismissOverlays(page), 10000);
+          if (await isErrorPage(page)) {
+            throw new Error(
+              "the site dropped to Chrome's error page while being prepared; re-run for this slug.",
+            );
+          }
+
           const shot = await page.screenshot({ type: "png" });
 
           if (await pageIsBlank(shot)) {
@@ -412,7 +430,10 @@ for (const project of targets) {
             continue;
           }
 
-          return shot;
+          // The page is prepared and verified at this point, so the tall
+          // frame costs only the extra capture.
+          const full = await page.screenshot({ type: "png", fullPage: true });
+          return { shot, full };
         }
       })(),
       PER_SITE_TIMEOUT_MS,
@@ -420,12 +441,34 @@ for (const project of targets) {
     );
 
     const file = `${OUT_DIR}/${project.slug}.webp`;
-    const { size } = await sharp(raw)
+    const { size } = await sharp(raw.shot)
       .resize(WIDTH, HEIGHT, { fit: "cover", position: "top" })
       .webp({ quality: 82, effort: 6 })
       .toFile(file);
 
-    console.log(`  ok    ${project.slug.padEnd(16)} ${(size / 1024).toFixed(0)} kB  ${file}`);
+    // Tall frame: scaled to the same width, then trimmed from the top so the
+    // hero is always where the pan starts.
+    const fullFile = `${OUT_DIR}/${project.slug}-full.webp`;
+    const scaled = sharp(raw.full).resize({ width: WIDTH, withoutEnlargement: false });
+    const { height: scaledHeight = FULL_MAX_HEIGHT } = await scaled
+      .clone()
+      .toBuffer({ resolveWithObject: true })
+      .then((r) => r.info);
+
+    const { size: fullSize } = await scaled
+      .extract({
+        left: 0,
+        top: 0,
+        width: WIDTH,
+        height: Math.min(scaledHeight, FULL_MAX_HEIGHT),
+      })
+      .webp({ quality: 80, effort: 6 })
+      .toFile(fullFile);
+
+    console.log(
+      `  ok    ${project.slug.padEnd(16)} ${(size / 1024).toFixed(0)} kB cover  +  ` +
+        `${(fullSize / 1024).toFixed(0)} kB full (${Math.min(scaledHeight, FULL_MAX_HEIGHT)}px)`,
+    );
   } catch (error) {
     failed += 1;
     console.error(`  FAIL  ${project.slug.padEnd(16)} ${error.message.split("\n")[0]}`);

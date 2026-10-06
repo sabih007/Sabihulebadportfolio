@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Arrow } from "@/components/ui/Arrow";
 import { BuiltFromScratchBadge } from "@/components/ui/Badge";
 import { Reveal } from "@/components/ui/Reveal";
+import { BrowserMockup } from "@/components/work/BrowserMockup";
 import { ProjectCover } from "@/components/work/ProjectCover";
 import type { CoverTone } from "@/components/work/ProjectCover";
 import { websiteLabel } from "@/data/projects";
@@ -54,18 +55,30 @@ export function ProjectCard({
           className="block rounded-panel focus-visible:outline-offset-4"
         >
           <div className="relative aspect-[16/11] w-full sm:aspect-[16/10]">
-            <ProjectCover
-              project={project}
-              tone={tone}
-              priority={priority}
-              sizes="(min-width: 1024px) 58vw, 92vw"
-              className={cn(
-                "h-full w-full transition-[border-color,box-shadow] duration-500",
-                tone === "navy"
-                  ? "group-hover/project:shadow-[0_30px_70px_-40px_rgba(41,54,129,0.8)]"
-                  : "group-hover/project:border-blue/35 group-hover/project:shadow-[0_30px_70px_-45px_rgba(41,54,129,0.55)]",
-              )}
-            />
+            {/* A real capture is framed as the live site; anything without one
+                falls back to the designed panel, which is what <ProjectCover>
+                draws. */}
+            {project.coverFull ? (
+              <BrowserMockup
+                project={project}
+                priority={priority}
+                sizes="(min-width: 1024px) 58vw, 92vw"
+                className="h-full w-full group-hover/project:border-blue/35 group-hover/project:shadow-[0_30px_70px_-45px_rgba(41,54,129,0.55)]"
+              />
+            ) : (
+              <ProjectCover
+                project={project}
+                tone={tone}
+                priority={priority}
+                sizes="(min-width: 1024px) 58vw, 92vw"
+                className={cn(
+                  "h-full w-full transition-[border-color,box-shadow] duration-500",
+                  tone === "navy"
+                    ? "group-hover/project:shadow-[0_30px_70px_-40px_rgba(41,54,129,0.8)]"
+                    : "group-hover/project:border-blue/35 group-hover/project:shadow-[0_30px_70px_-45px_rgba(41,54,129,0.55)]",
+                )}
+              />
+            )}
           </div>
         </Link>
       </div>
