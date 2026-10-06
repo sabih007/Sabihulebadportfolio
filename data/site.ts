@@ -7,6 +7,8 @@
  * than guessing one.
  */
 
+import { hasPublishedWriting } from "@/data/writing";
+
 export type SocialLink = {
   label: string;
   href: string;
@@ -80,26 +82,48 @@ export const heroTrust = [
   { label: "100% Job Success" },
 ] as const;
 
-export const navigation = [
+type NavItem = {
+  label: string;
+  href: string;
+  /** Hidden until the section it points at has something in it. */
+  requiresWriting?: boolean;
+};
+
+const mainNav: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Work", href: "/work" },
   { label: "Reviews", href: "/reviews" },
   { label: "Experience", href: "/#experience" },
   { label: "Services", href: "/services" },
+  { label: "Writing", href: "/writing", requiresWriting: true },
   { label: "Contact", href: "/contact" },
-] as const;
+];
 
-export const footerNavigation = [
+const footerNav: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Work", href: "/work" },
   { label: "Reviews", href: "/reviews" },
   { label: "Services", href: "/services" },
+  { label: "Writing", href: "/writing", requiresWriting: true },
   { label: "Contact", href: "/contact" },
   /** For clients, who are sent the link directly — crawlable all the same. */
   { label: "Leave Feedback", href: "/feedback" },
-] as const;
+];
+
+/**
+ * Links to a section are withheld until it has content, on the same principle
+ * as `socialLinks()` omitting an unverified profile: the site never sends a
+ * visitor to an empty page. Publishing the first article in `data/writing.ts`
+ * reveals the link in the header, the mobile menu and the footer at once.
+ */
+function visible(items: NavItem[]): NavItem[] {
+  return items.filter((item) => !item.requiresWriting || hasPublishedWriting());
+}
+
+export const navigation = visible(mainNav);
+export const footerNavigation = visible(footerNav);
 
 /**
  * Only links with a verified URL are returned, so nothing is ever fabricated.

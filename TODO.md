@@ -46,18 +46,19 @@ homepage and `/about`.
 The verified Upwork engagement record shown underneath is real data derived from
 `data/testimonials.ts` and needs no changes.
 
-## 4. Project screenshots — `public/images/projects/`
+## 4. Project screenshots — done
 
-Every project visual currently renders a designed typographic frame rather than a
-fabricated mockup. To use real imagery:
+All four projects now carry a real 1600×1000 screenshot of the live site in
+`public/images/projects/`, wired to `coverImage` in `data/projects.ts`, so
+`<ProjectCover>` renders them through `next/image` with AVIF/WebP negotiation.
 
-1. Capture each live site at roughly 1600×1000 (and any detail shots).
-2. Save as `public/images/projects/<slug>.webp`.
-3. Set `coverImage` (and optionally `gallery`) on that project in
-   `data/projects.ts`.
+Re-capture with `npm run shots` (or `npm run shots -- <slug>`) whenever a client
+site is redesigned — the case studies pick the new file up with no code change.
+The script refuses to write a blank frame or a browser error page, so a failed
+capture is reported rather than silently shipped.
 
-`<ProjectCover>` then switches to `next/image` with AVIF/WebP negotiation and the
-case-study gallery grid appears in place of the full-bleed fallback.
+Still optional: **detail shots**. Set `gallery` on a project and the case-study
+grid replaces the full-bleed cover in the visual showcase.
 
 ## 5. Per-project detail — `data/projects.ts`
 
@@ -165,11 +166,8 @@ No action needed on any of these — listed so they are not redone by hand:
   be used for link spam.
 - Web app manifest at `/manifest.webmanifest`.
 
-### The two things code cannot fix
+### The one thing code cannot fix
 
-1. **Project screenshots** (item 4 above). Image-less case studies are the
-   biggest remaining gap — real screenshots with descriptive `alt` text help
-   both rankings and conversion.
-2. **Content depth.** Four case studies with `features` and `outcome` still
-   pending (items 4–5) is thin for the queries worth ranking for. Filling those
-   in will move the needle further than any further technical work.
+**Content depth.** Four case studies with `features` and `outcome` still pending
+(item 5) is thin for the queries worth ranking for. Filling those in will move
+the needle further than any further technical work.

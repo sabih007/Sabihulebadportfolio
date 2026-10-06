@@ -76,9 +76,12 @@ export async function POST(request: Request) {
     );
   }
 
-  // Both surfaces render published reviews, so both are now stale.
+  // Both surfaces render published reviews, so both are now stale. The sitemap
+  // too: it takes /reviews' lastModified from the newest published review, so
+  // without this it would keep serving yesterday's date until its daily tick.
   revalidatePath("/");
   revalidatePath("/reviews");
+  revalidatePath("/sitemap.xml");
 
   return NextResponse.json({ ok: true });
 }

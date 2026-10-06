@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { projects } from "@/data/projects";
 import { SITE_URL } from "@/data/site";
+import { publishedPosts } from "@/data/writing";
 import { listPublishedFeedback } from "@/lib/feedback/store";
 
 /**
@@ -74,5 +75,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...caseStudies];
+  // Writing stays out of the sitemap entirely until there is an article to
+  // read, so search engines are never pointed at an empty index. Each article
+  // carries its own publication date, which is the one date here that is
+  // genuinely per-URL.
+  const posts = publishedPosts();
+  const writing: MetadataRoute.Sitemap =
+    posts.length === 0
+      ? []
+      : [
+          {
+            url: `${SITE_URL}/writing`,
+            lastModified: new Date(`${posts[0].publishedAt}T00:00:00.000Z`),
+            changeFrequency: "weekly",
+            priority: 0.8,
+          },
+          ...posts.map((post) => ({
+            url: `${SITE_URL}/writing/${post.slug}`,
+            lastModified: new Date(`${post.updatedAt ?? post.publishedAt}T00:00:00.000Z`),
+            changeFrequency: "yearly" as const,
+            priority: 0.7,
+          })),
+        ];
+
+  return [...staticRoutes, ...caseStudies, ...writing];
 }

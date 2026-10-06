@@ -47,14 +47,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  if (!isAdminConfigured()) {
-    console.warn(`[admin] Sign-in attempted but: ${adminConfigurationProblem()}`);
-    return NextResponse.json(
-      { ok: false, message: "That password was not accepted." },
-      { status: 401 },
-    );
-  }
-
   const forwarded = request.headers.get("x-forwarded-for") ?? "";
   const ip = forwarded.split(",")[0]?.trim() || "unknown";
 
@@ -67,7 +59,19 @@ export async function POST(request: Request) {
 
   const password = typeof body.password === "string" ? body.password : "";
 
+  /**
+   * `passwordMatches` is asked even when the deployment has no password set.
+   * It does the same hashing work either way and refuses when unconfigured, so
+   * the two cases take the same time to answer — returning early on
+   * `isAdminConfigured()` before reaching it, as this route used to, threw that
+   * property away and made an unconfigured deployment detectable by how fast it
+   * said no. Throttling now covers the unconfigured case too.
+   */
   if (!passwordMatches(password)) {
+    if (!isAdminConfigured()) {
+      console.warn(`[admin] Sign-in attempted but: ${adminConfigurationProblem()}`);
+    }
+
     return NextResponse.json(
       { ok: false, message: "That password was not accepted." },
       { status: 401 },

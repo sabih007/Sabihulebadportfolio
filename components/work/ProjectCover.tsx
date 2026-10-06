@@ -24,19 +24,19 @@ type ProjectCoverProps = {
 /**
  * Project visual.
  *
- * When a verified screenshot has been added to `public/images/projects/` and
- * referenced from `data/projects.ts`, it is rendered through next/image with
- * AVIF/WebP negotiation. Until then this renders a designed typographic frame
- * instead — deliberately *not* a fabricated browser mockup of a site nobody has
- * screenshotted, so nothing on the page misrepresents the work.
+ * Every project now has a verified screenshot of its live site in
+ * `public/images/projects/`, referenced from `data/projects.ts` and rendered
+ * through next/image with AVIF/WebP negotiation. Re-capture them with
+ * `npm run shots` whenever a client site is redesigned.
+ *
+ * The fallback below is kept for any project added without a cover: a designed
+ * typographic frame, deliberately *not* a fabricated browser mockup of a site
+ * nobody has screenshotted, so nothing on the page misrepresents the work.
  *
  * Sized with container queries and `cqw` units rather than viewport
  * breakpoints, because the same component appears at ~230px inside the bento
  * card and at ~1400px full-bleed on a case study. Its typography has to follow
  * its own box, not the window.
- *
- * TODO: capture 1600×1000 screenshots of each live site, save them as
- * `public/images/projects/<slug>.webp`, and set `coverImage` in data/projects.ts.
  */
 export function ProjectCover({
   project,

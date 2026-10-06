@@ -92,7 +92,7 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
         data={breadcrumbSchema([
           { name: "Home", path: "/" },
           { name: "Work", path: "/work" },
-          { name: project.title, path: `/work/` },
+          { name: project.title, path: `/work/${project.slug}` },
         ])}
       />
 

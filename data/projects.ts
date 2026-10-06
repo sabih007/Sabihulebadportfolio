@@ -9,8 +9,10 @@
  *    inventories and results require verification from Sabih or the client. The
  *    case-study page renders a clearly marked pending block instead of
  *    inventing them. Fill them in and the block disappears automatically.
- *  - `coverImage` / `gallery` are empty until real screenshots are added to
- *    `public/images/projects/`. Until then `<ProjectCover>` renders a designed
+ *  - `coverImage` points at a real screenshot of the live site, captured by
+ *    `npm run shots`. `gallery` is still empty — no detail shots have been
+ *    taken — so the case study keeps the full-bleed cover for its showcase.
+ *    Where a cover is ever missing, `<ProjectCover>` renders a designed
  *    typographic frame rather than a fabricated mockup.
  *  - No `year` is recorded because no verified delivery dates were supplied.
  */
@@ -66,6 +68,7 @@ export const projects: Project[] = [
     technologies: ["Next.js"],
     services: ["Web Design", "UI/UX", "Full-Stack Development", "Responsive Implementation"],
     website: "https://buysellox.com/",
+    coverImage: "/images/projects/buysellox.webp",
     description:
       "A marketplace web platform built end to end in Next.js — interface, structure and application layer.",
     overview:
@@ -94,6 +97,7 @@ export const projects: Project[] = [
     technologies: ["Next.js"],
     services: ["Web Design", "UI/UX", "Full-Stack Development", "Design-to-Code Implementation"],
     website: "https://www.nexivostudio.io/",
+    coverImage: "/images/projects/nexivo-studio.webp",
     description:
       "A brand and digital-experience build for a studio whose website has to prove the work it sells.",
     overview:
@@ -122,6 +126,7 @@ export const projects: Project[] = [
     technologies: ["Next.js"],
     services: ["Web Design", "UI/UX", "eCommerce Development", "Full-Stack Development"],
     website: "https://chinexmall.com/",
+    coverImage: "/images/projects/chinex-mall.webp",
     description:
       "An eCommerce experience built from scratch in Next.js, designed around how people actually shop.",
     overview:
@@ -150,6 +155,7 @@ export const projects: Project[] = [
     technologies: ["WordPress"],
     services: ["Web Design", "UI/UX", "WordPress Development", "Responsive Implementation"],
     website: "https://caldentalusa.com/",
+    coverImage: "/images/projects/cal-dental-usa.webp",
     description:
       "A complete production WordPress website for a dental practice — built from scratch, not assembled from a theme.",
     overview:
